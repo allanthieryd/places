@@ -1,22 +1,27 @@
 import { useState, useRef, useEffect } from "react";
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import Link from "next/link";
-import Image from "next/image";
-import { Button } from "../components/Button";
-import home_icon from "../images/home_icon.png";
-import add_icon from "../images/add_icon.png";
-import filter_icon from "../images/filter_icon.png";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@/components/Button";
+import {
+  faStar,
+  faFilter,
+  faHouseChimney,
+  faPlusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field,Formik,Form } from "formik"
-
-
+import { Field, Formik, Form } from "formik";
+import AddressModel from "@/database/models/AddressModel";
+import DarkModeButton from "@/components/DarkModeButton";
 
 const App = ({ Component, pageProps }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const [distance, setDistance] = useState(50);
+  const [rating, setRating] = useState(pageProps.rating || 0);
 
-  const handleToggleMenu = () => {
+  const handleToggleMenu = (event) => {
+    console.log("Menu clicked !");
+    event.stopPropagation();
     setMenuOpen(!isMenuOpen);
   };
 
@@ -26,81 +31,158 @@ const App = ({ Component, pageProps }) => {
     }
   };
 
+  const handleDistanceChange = (newDistance) => {
+    setDistance(newDistance);
+  };
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating);
+  };
+
   useEffect(() => {
-    document.addEventListener("mousedown", handleCloseMenu);
+    document.addEventListener("click", handleCloseMenu);
     return () => {
-      document.removeEventListener("mousedown", handleCloseMenu);
+      document.removeEventListener("click", handleCloseMenu);
     };
   }, []);
 
   return (
-    <main className="flex flex-col">
-      <header className="flex justify-around border-b-4 border-slate-00 shadow-md">
-        <div className="max-w-md p-4 pr-12 min-w-32 ml-72 md:ml-6 lg:ml-0">
+    <main className="dark:bg-gray-900 dark:text-white">
+      <header className="border-b-4 border-slate-00 dark:border-gray-800 shadow-md w-full h-24">
+        <div className="fixed top-5 left-32 pr-10 z-10 min-w-32">
           <a href="">
-            <Image src={home_icon} width={50} height={50} alt="home icon" />
+            <FontAwesomeIcon icon={faHouseChimney} size="3x" />
           </a>
         </div>
-        <div className="ml-96 max-w-md p-4 pl-12 min-w-32">
+        <div className="flex justify-center mr-5 p-5 py-6 text-2xl">
+          <input
+            type="text"
+            placeholder="Rechercher une adresse..."
+            className="border-2 border-slate-00 rounded-md p-2 mt-0 text-black"
+          />
+        </div>
+        <div className="fixed top-5 right-24 pl-10 z-10 min-w-32">
           <a href="/addresses/edit.jsx">
-            <Image src={add_icon} width={50} height={50} alt="add icon" />
+            <FontAwesomeIcon icon={faPlusCircle} size="3x" />
           </a>
         </div>
       </header>
-      <div className="ml-12 mt-4">
-      <div className="">
-        {/* Bouton du menu déroulant */}
-        <button onClick={handleToggleMenu} className="p-2">
-          <Image src={filter_icon} width={30} height={30} alt="filter icon" />
-        </button>
+      <div className="absolute top-5 right-4">
+        <DarkModeButton />
       </div>
+      <div className="ml-12 mt-4 relative">
+        <div className="">
+          {/* Bouton du menu déroulant */}
 
-      {/* Menu déroulant */}
-      {isMenuOpen && (
-        <div
-          ref={menuRef}
-          className="ml-50 h-1/3 w-4/12 bg-gray-200 rounded-lg shadow-lg p-4"
-        >
-          {/* Contenu du menu déroulant */}
-          <ul className="leading-loose">
-            <li>
+          <button onClick={handleToggleMenu} className="p-2">
+            <FontAwesomeIcon icon={faFilter} size="3x" />
+          </button>
+        </div>
+
+        {/* Menu déroulant */}
+        {isMenuOpen && (
+          <div
+            ref={menuRef}
+            className="ml-50 h-1/3 w-4/12 fixed bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-900"
+          >
+            {/* Contenu du menu déroulant */}
+            <ul className="leading-loose">
+              <li>
                 <p className="">Distance</p>
-            </li>
-            <li>
+                <input
+                  type="range"
+                  id="distance"
+                  name="distance"
+                  min="0"
+                  max="100"
+                  value={pageProps.distance}
+                  step="10"
+                  onChange={(e) => {
+                    handleDistanceChange(e.target.value);
+                  }}
+                />
+                <label htmlFor="distance">{distance}Km</label>
+              </li>
+              <li>
                 <p className="">Types de lieux</p>
                 <div className="flex justify-around text-sm sm:text-xs text-center">
-                <label>
-                  <input type="checkbox" name="checked" value="restaurants" class="w-4 h-4"></input><br></br>Restaurants              
-                </label>
-                <label>
-                  <input type="checkbox" name="checked" value="restaurants" class="w-4 h-4"></input><br></br>Bars              
-                </label>
-                <label>
-                  <input type="checkbox" name="checked" value="restaurants" class="w-4 h-4"></input><br></br>Parcs              
-                </label>
-                <label>
-                  <input type="checkbox" name="checked" value="restaurants" class="w-4 h-4"></input><br></br>Musées              
-                </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="checked"
+                      value="restaurants"
+                      class="w-4 h-4"
+                    ></input>
+                    <br></br>Restaurants
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="checked"
+                      value="restaurants"
+                      class="w-4 h-4"
+                    ></input>
+                    <br></br>Bars
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="checked"
+                      value="restaurants"
+                      class="w-4 h-4"
+                    ></input>
+                    <br></br>Parcs
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="checked"
+                      value="restaurants"
+                      class="w-4 h-4"
+                    ></input>
+                    <br></br>Musées
+                  </label>
                 </div>
-            </li>
-            <li>
-                <p className="">Notation</p>
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-            </li>
-            {/* Ajoutez d'autres liens du menu ici */}
-          </ul>
-        </div>
-        
-      )}</div>
+              </li>
+              <li>
+                <p>Notation</p>
+                <div className="cursor-pointer w-24 flex gap-1">
+                  {[1, 2, 3, 4, 5].map((index) => (
+                    <FontAwesomeIcon
+                      key={index}
+                      icon={faStar}
+                      className={`text-2xl ${
+                        index <= rating ? "text-yellow-400" : "text-gray-300"
+                      }`}
+                      onClick={() => handleRatingChange(index)}
+                    />
+                  ))}
+                </div>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
 
-      <div className="flex justify-between mt-12 ml-6">
-        <table className="w-1/2 border">
-          {/* ... contenu du tableau */}
-        </table>
+      <div className="flex justify-end mt-12 mr-6 md:mr-24 lg:mr-32">
+        {pageProps && pageProps.addresses ? (
+          <table className="w-1/2 border">
+            <thead>
+              <tr>
+                <th className="p-3">Places</th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {pageProps.addresses.map((address, index) => (
+                <tr key={index}>
+                  <td className="p-3">{address.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No addresses found</p>
+        )}
       </div>
 
       <section className="flex justify-center">
