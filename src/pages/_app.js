@@ -2,16 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import "@/styles/globals.css";
 import Link from "next/link";
 import { Button } from "@/components/Button";
-import {
-  faStar,
-  faFilter,
-  faHouseChimney,
-  faPlusCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar,faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Formik, Form } from "formik";
 import AddressModel from "@/database/models/AddressModel";
 import DarkModeButton from "@/components/DarkModeButton";
+import Header from "@/components/header";
+import "@fontsource/montserrat";
 
 const App = ({ Component, pageProps }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -48,25 +44,7 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <main className="dark:bg-gray-900 dark:text-white">
-      <header className="border-b-4 border-slate-00 dark:border-gray-800 shadow-md w-full h-24">
-        <div className="fixed top-5 left-14 pr-10 z-10 min-w-32">
-          <a href="">
-            <FontAwesomeIcon icon={faHouseChimney} size="3x" />
-          </a>
-        </div>
-        <div className="flex justify-center mr-8 p-5 py-6 text-2xl">
-          <input
-            type="text"
-            placeholder="Rechercher une adresse..."
-            className="border-2 border-slate-00 rounded-md p-2 mt-0 text-black w-1/3 dark:bg-gray-800 dark:text-white"
-          />
-        </div>
-        <div className="fixed top-5 right-14 pl-10 z-10 min-w-32">
-          <a href="/addresses/edit.jsx">
-            <FontAwesomeIcon icon={faPlusCircle} size="3x" />
-          </a>
-        </div>
-      </header>
+      <Header />
       <div className="absolute top-5 right-4">
         <DarkModeButton />
       </div>
@@ -83,7 +61,7 @@ const App = ({ Component, pageProps }) => {
         {isMenuOpen && (
           <div
             ref={menuRef}
-            className="ml-50 h-1/3 w-5/12 fixed bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800"
+            className="ml-50 h-2/5 w-5/12 fixed bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800"
           >
             {/* Contenu du menu déroulant */}
             <ul className="leading-loose">
@@ -104,9 +82,9 @@ const App = ({ Component, pageProps }) => {
                 <label htmlFor="distance"> {distance} Km</label>
               </li>
               <li>
-                <p className="">Types de lieux</p>
+                <p className="mt-2">Types de lieux</p>
                 <div className="flex justify-around flex-wrap text-sm sm:text-xs text-center">
-                  <label  className="text-[9px] sm:text-[18px]">
+                  <label className="text-[9px] sm:text-[18px]">
                     <input
                       type="checkbox"
                       name="checked"
@@ -115,7 +93,7 @@ const App = ({ Component, pageProps }) => {
                     ></input>
                     <br></br>Restaurants
                   </label>
-                  <label  className="text-[9px] sm:text-[18px]">
+                  <label className="text-[9px] sm:text-[18px]">
                     <input
                       type="checkbox"
                       name="checked"
@@ -124,7 +102,7 @@ const App = ({ Component, pageProps }) => {
                     ></input>
                     <br></br>Bars
                   </label>
-                  <label  className="text-[9px] sm:text-[18px]">
+                  <label className="text-[9px] sm:text-[18px]">
                     <input
                       type="checkbox"
                       name="checked"
@@ -133,7 +111,7 @@ const App = ({ Component, pageProps }) => {
                     ></input>
                     <br></br>Parcs
                   </label>
-                  <label  className="text-[9px] sm:text-[18px]">
+                  <label className="text-[9px] sm:text-[18px]">
                     <input
                       type="checkbox"
                       name="checked"
@@ -145,13 +123,13 @@ const App = ({ Component, pageProps }) => {
                 </div>
               </li>
               <li>
-                <p>Notation</p>
+                <p className="mt-2">Notation</p>
                 <div className="w-42 flex gap-1 flex-wrap">
                   {[1, 2, 3, 4, 5].map((index) => (
                     <FontAwesomeIcon
                       key={index}
                       icon={faStar}
-                      className={`text-2xl cursor-pointer ${
+                      className={`text-[19px] sm:text-2xl cursor-pointer ${
                         index <= rating ? "text-yellow-400" : "text-gray-300"
                       }`}
                       onClick={() => handleRatingChange(index)}
