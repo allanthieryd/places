@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Link from "next/link";
 import "@fontsource/montserrat"
+import DarkModeButton from "@/components/DarkModeButton";
 
 const addAddress = "@/pages/api/addresses.js"
 
@@ -25,6 +26,9 @@ const Header = () => {
         <Link href="/add_address">
           <FontAwesomeIcon icon={faPlusCircle} size="3x" />
         </Link>
+      </div>
+      <div className="absolute top-5 right-4">
+        <DarkModeButton />
       </div>
     </header>
   );

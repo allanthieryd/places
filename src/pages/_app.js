@@ -1,3 +1,13 @@
-const App = () => <p></p>;
-///<body className="dark:bg-gray-900"></body>
+import "@/styles/globals.css";
+import Header from "@/components/Header";
+
+const App = ({ Component, pageProps }) => {
+  return (
+    <div>
+      <Header />
+      <Component {...pageProps} />
+    </div>
+  );
+};
+
 export default App;

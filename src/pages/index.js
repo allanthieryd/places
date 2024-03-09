@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import "@/styles/globals.css";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { faStar,faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddressModel from "@/database/models/AddressModel";
 import DarkModeButton from "@/components/DarkModeButton";
-import Header from "@/components/header";
 import "@fontsource/montserrat";
 
 const HomePage = ({ Component, pageProps }) => {
@@ -43,11 +41,7 @@ const HomePage = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <main className="dark:bg-gray-900 dark:text-white">
-      <Header />
-      <div className="absolute top-5 right-4">
-        <DarkModeButton />
-      </div>
+    <main className="dark:bg-gray-900 dark:text-white">      
       <div className="ml-12 mt-4 relative">
         <div className="">
           {/* Bouton du menu déroulant */}
