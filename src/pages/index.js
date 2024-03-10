@@ -7,11 +7,28 @@ import AddressModel from "@/database/models/AddressModel";
 import DarkModeButton from "@/components/DarkModeButton";
 import "@fontsource/montserrat";
 
-const HomePage = ({ Component, pageProps }) => {
+const HomePage = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const [distance, setDistance] = useState(50);
-  const [rating, setRating] = useState(pageProps.rating || 0);
+  const [rating, setRating] = useState(0);
+
+  const addresses = [
+    { name: "Address 1" },
+    { name: "Address 2" },
+    { name: "Address 3" },
+    { name: "Address 4" },
+    { name: "Address 5" },
+    { name: "Address 6" },
+    { name: "Address 7" },
+    { name: "Address 8" },
+    { name: "Address 9" },
+    { name: "Address 10" },   
+    { name: "Address 11" },
+    { name: "Address 12" }
+    
+  ];
+
 
   const handleToggleMenu = (event) => {
     console.log("Menu clicked !");
@@ -67,7 +84,7 @@ const HomePage = ({ Component, pageProps }) => {
                   name="distance"
                   min="0"
                   max="100"
-                  value={pageProps.distance}
+                  value={distance}
                   step="10"
                   onChange={(e) => {
                     handleDistanceChange(e.target.value);
@@ -136,17 +153,17 @@ const HomePage = ({ Component, pageProps }) => {
         )}
       </div>
 
-      <div className="flex justify-end mt-12 mr-6 md:mr-24 lg:mr-32">
-        {pageProps && pageProps.addresses ? (
+      <div className="flex justify-end mt-12 mr-6 md:mr-24 lg:mr-32 ">
+        {addresses ? (
           <table className="w-1/2 border">
             <thead>
-              <tr>
+              <tr className="bg-gray-200 dark:bg-gray-900">
                 <th className="p-3">Places</th>
               </tr>
             </thead>
-            <tbody className="">
-              {pageProps.addresses.map((address, index) => (
-                <tr key={index}>
+            <tbody>
+              {addresses.map((address, index) => (
+                <tr className="even:bg-gray-100 odd:bg-white dark:even:bg-gray-800 dark:odd:bg-gray-700" key={index}>
                   <td className="p-3">{address.name}</td>
                 </tr>
               ))}
@@ -157,11 +174,7 @@ const HomePage = ({ Component, pageProps }) => {
         )}
       </div>
 
-      <section className="flex justify-center">
-        <div className="max-w-md w-full p-10">
-          <Component {...pageProps} />
-        </div>
-      </section>
+      
     </main>
   );
 };

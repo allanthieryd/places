@@ -19,7 +19,7 @@ const Header = () => {
         <input
           type="text"
           placeholder="Rechercher une adresse..."
-          className="border-2 border-slate-00 rounded-md p-2 mt-0 text-black w-1/3 dark:bg-gray-800 dark:text-white"
+          className="border-2 border-slate-00 rounded-md p-2 mt-0 text-black w-1/3 dark:bg-gray-800"
         />
       </div>
       <div className="fixed top-5 right-14 pl-10 z-10 min-w-32">
