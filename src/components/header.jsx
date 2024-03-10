@@ -5,29 +5,29 @@ import Link from "next/link";
 import "@fontsource/montserrat"
 import DarkModeButton from "@/components/DarkModeButton";
 
-const addAddress = "@/pages/api/addresses.js"
-
 const Header = () => {
   return (
-    <header className="border-b-4 border-slate-00 dark:border-gray-800 shadow-md w-full h-24">
-      <div className="fixed top-5 left-14 pr-10 z-10 min-w-32">
+    <header className="fixed top-0 left-0 items-center justify-between border-b-4 border-slate-00 dark:border-gray-800 shadow-md w-full h-24">
+      <div className="fixed top-5 left-14 min-w-24">
         <Link href="/">
             <FontAwesomeIcon icon={faHouseChimney} size="3x" />
         </Link>
       </div>
-      <div className="flex justify-center mr-8 p-5 py-6 text-[10px] sm:text-2xl font-montserrat">
+      <div className="flex-grow flex items-center justify-center">
+        <div className="relative p-5 text-[7px] md:text-base sm:text-lg font-montserrat">
         <input
-          type="text"
-          placeholder="Rechercher une adresse..."
-          className="border-2 border-slate-00 rounded-md p-2 mt-0 text-black w-1/3 dark:bg-gray-800"
+          type="search"
+          placeholder="Rechercher un lieu..."
+          className="border-2 border-slate-00 rounded-md p-2 mt-5 sm:mt-0 text-black dark:text-white dark:bg-gray-800 w-full"
         />
+        </div>
       </div>
-      <div className="fixed top-5 right-14 pl-10 z-10 min-w-32">
+      <div className="fixed top-5 md:right-8 right-4 min-w-24">
         <Link href="/add_address">
           <FontAwesomeIcon icon={faPlusCircle} size="3x" />
         </Link>
       </div>
-      <div className="absolute top-5 right-4">
+      <div className="fixed top-5 right-4">
         <DarkModeButton />
       </div>
     </header>
