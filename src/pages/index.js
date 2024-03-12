@@ -2,31 +2,31 @@ import { useState, useRef, useEffect } from "react";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fontsource/montserrat";
-import RestaurantInfos from "@/components/RestaurantsInfos"
-import MuseumsInfos from "@/components/MuseumsInfos"
-import BarsInfos from "@/components/BarsInfos"
-import ParcsInfos from "@/components/ParcsInfos"
+import RestaurantInfos from "@/components/RestaurantsInfos";
+import MuseumsInfos from "@/components/MuseumsInfos";
+import BarsInfos from "@/components/BarsInfos";
+import ParcsInfos from "@/components/ParcsInfos";
+import AddressModel from "@/database/models/AddressModel";
 
 const HomePage = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const [distance, setDistance] = useState(50);
+  const [addresses, setAddresses] = useState([]);
 
-  const addresses = [
-    { place: "10 rue de Rivoli, Paris", name: "La Bonne Franquette", country: "France", type: "Restaurant" },
-    { place: "20 Baker Street, London", name: "Sherlock's Pub", country: "United Kingdom", type: "Bar" },
-    { place: "5th Avenue, New York", name: "Metropolitan Museum of Art", country: "USA", type: "Museum" },
-    { place: "Tokyo Tower, Minato City", name: "Sakura Gardens", country: "Japan", type: "Park" },
-    { place: "123 Main Street, Berlin", name: "Schnitzel Haus", country: "Germany", type: "Restaurant" },
-    { place: "Rua Augusta, Lisbon", name: "Fado Lounge", country: "Portugal", type: "Bar" },
-    { place: "Calle Gran Vía, Madrid", name: "Prado National Museum", country: "Spain", type: "Museum" },
-    { place: "Sydney Opera House, Sydney", name: "Botanic Gardens", country: "Australia", type: "Park" },
-    { place: "Via della Conciliazione, Rome", name: "Pasta Paradiso", country: "Italy", type: "Restaurant" },
-    { place: "Herengracht, Amsterdam", name: "Windmill Pub", country: "Netherlands", type: "Bar" },
-    { place: "Champs-Élysées, Paris", name: "Louvre Museum", country: "France", type: "Museum" },
-    { place: "Golden Gate Park, San Francisco", name: "Redwood Retreat", country: "USA", type: "Park" },
-  ];
-  
+  useEffect(() => {
+    // Fetch data from the MongoDB database using the AddressModel
+    const fetchData = async () => {
+      try {
+        const data = await AddressModel.find();
+        setAddresses(data);
+      } catch (error) {
+        console.error("Error fetching data from the database:", error);
+      }
+    };
+
+    fetchData(); // Call the function to fetch data when the component mounts
+  }, []);
 
   const handleToggleMenu = (event) => {
     console.log("Menu clicked !");
@@ -44,10 +44,6 @@ const HomePage = () => {
     setDistance(newDistance);
   };
 
-  const handlePriceRangeChange = (newPriceRange) => {
-    setpriceRange(newPriceRange);
-  };
-
   useEffect(() => {
     document.addEventListener("click", handleCloseMenu);
     return () => {
@@ -56,7 +52,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <main className="dark:bg-gray-900 dark:text-white">      
+    <main className="dark:bg-gray-900 dark:text-white">
       <div className="ml-12 mt-4 relative">
         <div className="mt-28">
           {/* Bouton du menu déroulant */}
@@ -77,7 +73,13 @@ const HomePage = () => {
               <li>
                 <p className="">Distance</p>
                 <input
-                  type="range" id="distance" name="distance" min="0" max="100" value={distance} step="10"
+                  type="range"
+                  id="distance"
+                  name="distance"
+                  min="0"
+                  max="100"
+                  value={distance}
+                  step="10"
                   onChange={(e) => {
                     handleDistanceChange(e.target.value);
                   }}
@@ -85,24 +87,24 @@ const HomePage = () => {
                 <label htmlFor="distance"> {distance} Km</label>
               </li>
               <li>
-              <p className="mt-2">Types de lieux</p>
+                <p className="mt-2">Types de lieux</p>
                 <div className="flex justify-around flex-wrap text-sm sm:text-xs text-center">
-                  <RestaurantInfos/>
+                  <RestaurantInfos />
                   <BarsInfos />
-                  <ParcsInfos/>
-                  <MuseumsInfos/>
+                  <ParcsInfos />
+                  <MuseumsInfos />
                 </div>
-              </li>             
+              </li>
             </ul>
           </div>
         )}
       </div>
 
       <div className="flex justify-end mr-6 md:mr-12 lg:mr-24 ">
-        {addresses ? (
+        {addresses && addresses.length > 0 ? (
           <table className="w-1/2 border text-xs">
             <thead>
-              <tr className="bg-gray-200 dark:bg-gray-900">                
+              <tr className="bg-gray-200 dark:bg-gray-900">
                 <th className="p-3">Address</th>
                 <th className="p-3">Name</th>
                 <th className="p-3">Country</th>
@@ -111,8 +113,15 @@ const HomePage = () => {
             </thead>
             <tbody>
               {addresses.map((address, index) => (
-                <tr className="even:bg-gray-100 odd:bg-white dark:even:bg-gray-800 dark:odd:bg-gray-700" key={index}>
-                  <td className="p-3">{address.place}</td>
+                <tr
+                  className={
+                    index % 2 === 0
+                      ? "even:bg-gray-100 dark:even:bg-gray-800"
+                      : "odd:bg-white dark:odd:bg-gray-700"
+                  }
+                  key={index}
+                >
+                  <td className="p-3">{address.address}</td>
                   <td className="p-3">{address.name}</td>
                   <td className="p-3">{address.country}</td>
                   <td className="p-3">{address.type}</td>
@@ -123,7 +132,7 @@ const HomePage = () => {
         ) : (
           <p>No addresses found</p>
         )}
-      </div>      
+      </div>
     </main>
   );
 };
