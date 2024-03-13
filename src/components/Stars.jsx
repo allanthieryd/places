@@ -1,15 +1,15 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { faStar } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useState } from "react"
 
 
 
 const Stars = () => {
-    const [rating, setRating] = useState(0);
-
+    const [rating, setRating] = useState(0)
     const handleRatingChange = (newRating) => {
-    setRating(newRating);
-    };
+    setRating(newRating)
+    }
+
     return (
         <main>
             <div className="w-42 flex gap-1 flex-wrap">
@@ -26,4 +26,4 @@ const Stars = () => {
                 </div>
                 </main>
     )}
-export default Stars;
+export default Stars

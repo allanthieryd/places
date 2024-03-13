@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
 const DarkModeButton = () => {
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState(null)
 
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
+      setTheme("dark")
     } else {
-      setTheme("light");
+      setTheme("light")
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add("dark")
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("dark")
     }
-  }, [theme]);
+  }, [theme])
 
   const handleThemeSwitch = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+    setTheme(theme === "dark" ? "light" : "dark")
+  }
 
   return (
     <button
@@ -31,7 +31,7 @@ const DarkModeButton = () => {
     >
       {theme === "dark" ? "🌑" : "☀️"}
     </button>
-  );
-};
+  )
+}
 
-export default DarkModeButton;
+export default DarkModeButton

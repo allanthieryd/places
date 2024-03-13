@@ -1,20 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react"
 
 const MuseumsInfos = () => {
-  const [isMuseumChecked, setMuseumChecked] = useState(false);
-  const [selectedArtStyle, setSelectedArtStyle] = useState("");
-  const [selectedArtType, setSelectedArtType] = useState("");
-  const [isMuseumPaid, setMuseumPaid] = useState(false);
-  const [museumPrice, setMuseumPrice] = useState(0);
-
+  const [isMuseumChecked, setMuseumChecked] = useState(false)
+  const [selectedArtStyle, setSelectedArtStyle] = useState("")
+  const [selectedArtType, setSelectedArtType] = useState("")
+  const [isMuseumPaid, setMuseumPaid] = useState(false)
+  const [museumPrice, setMuseumPrice] = useState(0)
   const handleCheckboxChange = () => {
-    setMuseumChecked(!isMuseumChecked);
-  };
-
+    setMuseumChecked(!isMuseumChecked)
+  }
   const handleMuseumPaidChange = () => {
-    setMuseumPaid(!isMuseumPaid);
-  };
+    setMuseumPaid(!isMuseumPaid)
+  }
 
   return (
     <main>
@@ -88,7 +86,7 @@ const MuseumsInfos = () => {
         )}
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default MuseumsInfos;
+export default MuseumsInfos

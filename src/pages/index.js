@@ -6,24 +6,13 @@ import RestaurantInfos from "@/components/RestaurantsInfos"
 import MuseumsInfos from "@/components/MuseumsInfos"
 import BarsInfos from "@/components/BarsInfos"
 import ParcsInfos from "@/components/ParcsInfos"
-import AddressModel from "@/database/models/AddressModel"
+import axios from "axios"
 
 const HomePage = () => {
   const [isMenuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const [distance, setDistance] = useState(50)
   const [addresses, setAddresses] = useState([])
-
-  useEffect(() => {
-    // Fetch data from the MongoDB database using the AddressModel
-    const fetchData = async () => {
-        const data = await AddressModel.find()
-        setAddresses(data)
-    }
-
-    fetchData()
-  }, [])
-
   const handleToggleMenu = (event) => {
     event.stopPropagation()
     setMenuOpen(!isMenuOpen)
@@ -43,6 +32,14 @@ const HomePage = () => {
     return () => {
       document.removeEventListener("click", handleCloseMenu)
     }
+  }, [])
+
+  useEffect(() => {
+    axios
+      .get("/api/addresses")
+      .then((response) => {
+        setAddresses(response.data)
+      })
   }, [])
 
   return (

@@ -1,12 +1,11 @@
-import { faHouseChimney, faPlusCircle, } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import Link from "next/link";
+import { faHouseChimney, faPlusCircle, } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React from "react"
+import Link from "next/link"
 import "@fontsource/montserrat"
-import DarkModeButton from "@/components/DarkModeButton";
+import DarkModeButton from "@/components/DarkModeButton"
 
-const Header = () => {
-  return (
+const Header = () => (
     <header className="fixed top-0 left-0 items-center justify-between border-b-4 border-slate-00 dark:border-gray-800 shadow-md w-full h-24">
       <div className="fixed top-5 left-14 min-w-24">
         <Link href="/">
@@ -31,7 +30,6 @@ const Header = () => {
         <DarkModeButton />
       </div>
     </header>
-  );
-};
+  )
 
-export default Header;
+export default Header

@@ -1,9 +1,8 @@
                 
-import React from "react";
-import { Field, ErrorMessage } from "formik";
+import React from "react"
+import { Field, ErrorMessage } from "formik"
 
-const PlaceInfos = () => {
-    return (
+const PlaceInfos = () => (
         <main  className="text-right mr-24">
             <div>
                 <label>Nom du lieu</label>
@@ -35,6 +34,5 @@ const PlaceInfos = () => {
                 <ErrorMessage name="countryName" component="div" />
             </div>
         </main>
- );
-};
-export default PlaceInfos;
+ )
+export default PlaceInfos

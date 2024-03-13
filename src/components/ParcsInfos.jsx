@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const ParcsInfos = () => {
-  const [isParksChecked, setParksChecked] = useState(false);
-  const [selectedParkType, setSelectedParkType] = useState("");
-  const [isParkPublic, setParkPublic] = useState(false);
-  const [isParkFreeOrPaid, setParkFreeOrPaid] = useState(false);
-  const [parkPrice, setParkPrice] = useState(0);
-
+  const [isParksChecked, setParksChecked] = useState(false)
+  const [selectedParkType, setSelectedParkType] = useState("")
+  const [isParkPublic, setParkPublic] = useState(false)
+  const [isParkFreeOrPaid, setParkFreeOrPaid] = useState(false)
+  const [parkPrice, setParkPrice] = useState(0)
   const handleCheckboxChange = () => {
-    setParksChecked(!isParksChecked);
-  };
-
+    setParksChecked(!isParksChecked)
+  }
   const handleParkPublicChange = () => {
-    setParkPublic(!isParkPublic);
-  };
-
+    setParkPublic(!isParkPublic)
+  }
   const handleParkFreeOrPaidChange = () => {
-    setParkFreeOrPaid(!isParkFreeOrPaid);
-  };
+    setParkFreeOrPaid(!isParkFreeOrPaid)
+  }
 
   return (
     <main>
@@ -90,7 +87,7 @@ const ParcsInfos = () => {
         )}
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default ParcsInfos;
+export default ParcsInfos

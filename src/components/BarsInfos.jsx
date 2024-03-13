@@ -1,19 +1,15 @@
-import React, { useState } from "react";
-import Button from "@/components/Button";
-import Stars from "@/components/Stars";
+import React, { useState } from "react"
 
 const BarInfos = () => {
-  const [priceRange, setPriceRange] = useState(50);
-  const [isBarsChecked, setBarsChecked] = useState(false);
-  const [selectedBarType, setSelectedBarType] = useState("");
-
+  const [priceRange, setPriceRange] = useState(50)
+  const [isBarsChecked, setBarsChecked] = useState(false)
+  const [selectedBarType, setSelectedBarType] = useState("")
   const handlePriceRangeChange = (newPriceRange) => {
-    setPriceRange(newPriceRange);
-  };
-
+    setPriceRange(newPriceRange)
+  }
   const handleCheckboxChange = () => {
-    setBarsChecked(!isBarsChecked);
-  };
+    setBarsChecked(!isBarsChecked)
+  }
 
   return (
     <main>
@@ -58,7 +54,7 @@ const BarInfos = () => {
                 step="10"
                 className="dark:bg-gray-700 ml-5 mb-2"
                 onChange={(e) => {
-                  handlePriceRangeChange(e.target.value);
+                  handlePriceRangeChange(e.target.value)
                 }}
               />
               <br />
@@ -68,7 +64,7 @@ const BarInfos = () => {
         )}
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default BarInfos;
+export default BarInfos
