@@ -1,13 +1,11 @@
-import "@/styles/globals.css";
-import Header from "@/components/Header";
+import "@/styles/globals.css"
+import Header from "@/components/Header"
 
-const App = ({ Component, pageProps }) => {
-  return (
+const App = ({ Component, pageProps }) => (
     <div className="dark:bg-gray-900 dark:text-white h-screen overflow-hidden">
       <Header />
       <Component {...pageProps} />
     </div>
-  );
-};
+  )
 
-export default App;
+export default App

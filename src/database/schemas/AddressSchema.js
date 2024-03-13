@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema } from "mongoose"
 
 export const addressSchema = new Schema({
   type: {
@@ -64,4 +64,4 @@ export const addressSchema = new Schema({
     enum: ["Free", "Paid"],
   },
   parkPrice: Number,
-});
+})
