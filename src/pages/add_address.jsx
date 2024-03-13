@@ -1,41 +1,38 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import axios from "axios";
-import { Button } from "@/components/Button";
-import PlaceInfos from "@/components/PlaceInfos";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Stars from "@/components/Stars";
+import React, { useState } from 'react'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Button } from '@/components/Button'
+import PlaceInfos from '@/components/PlaceInfos'
+import Stars from '@/components/Stars'
 
 const AddAddress = () => {
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState(null)
 
   const initialValues = {
-    cuisineType: "",
+    cuisineType: '',
     starRating: 1,
     priceRange: useState(50),
-    artStyle: "",
-    artType: "",
+    artStyle: '',
+    artType: '',
     museumFreeOrPaid: false,
     museumPrice: 1,
-    barType: "",
+    barType: '',
     barPriceRange: 1,
-    parkType: "",
+    parkType: '',
     parkPublicOrPrivate: false,
     parkFreeOrPaid: false,
-    parkPrice: 1,
-  };
+    parkPrice: 1
+  }
 
   const handleTypeSelect = (type) => {
-    setSelectedType(type);
-  };
+    setSelectedType(type)
+  }
 
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
+    console.log(values)
     // Perform form submission logic here
-    setSubmitting(false);
-  };
+    setSubmitting(false)
+  }
 
   return (
     <div className="flex justify-center mt-32">
@@ -43,16 +40,16 @@ const AddAddress = () => {
         <h1 className="text-2xl flex justify-center">Veuillez entrer un lieu</h1>
         <br></br>
         <div className="flex flex-wrap space-x-4 justify-center">
-          <Button type="Button" onClick={() => handleTypeSelect("restaurant")}>
+          <Button type="Button" onClick={() => handleTypeSelect('restaurant')}>
             Restaurant
           </Button>
-          <Button type="Button" onClick={() => handleTypeSelect("museum")}>
+          <Button type="Button" onClick={() => handleTypeSelect('museum')}>
             Musée
           </Button>
-          <Button type="Button" onClick={() => handleTypeSelect("bar")}>
+          <Button type="Button" onClick={() => handleTypeSelect('bar')}>
             Bar
           </Button>
-          <Button type="Button" onClick={() => handleTypeSelect("park")}>
+          <Button type="Button" onClick={() => handleTypeSelect('park')}>
             Parc
           </Button>
         </div>
@@ -60,7 +57,7 @@ const AddAddress = () => {
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ values }) => (
             <Form>
-              {selectedType === "restaurant" && (
+              {selectedType === 'restaurant' && (
                 <>
                 <br></br>
                   <PlaceInfos/>
@@ -87,7 +84,7 @@ const AddAddress = () => {
                 </>
               )}
 
-              {selectedType === "museum" && (
+              {selectedType === 'museum' && (
                 <>
                 <br></br>
                   <PlaceInfos/>
@@ -117,14 +114,14 @@ const AddAddress = () => {
                   {values.museumFreeOrPaid && (
                     <div className="mt-2">
                       <label>Prix</label>
-                      <Field type="number" name="museumPrice"  className="dark:bg-gray-700 ml-5 mb-2"/>
+                      <Field type="number" name="museumPrice" className="dark:bg-gray-700 ml-5 mb-2"/>
                       <ErrorMessage name="museumPrice" component="div" />
                     </div>
                   )}
                 </>
               )}
 
-              {selectedType === "bar" && (
+              {selectedType === 'bar' && (
                 <>
                 <br></br>
                   <PlaceInfos/>
@@ -146,9 +143,9 @@ const AddAddress = () => {
                 </>
               )}
 
-              {selectedType === "park" && (
+              {selectedType === 'park' && (
                 <>
-                <br></br>                  
+                <br></br>
                   <PlaceInfos/>
                   <div>
                     <label>Type de parc</label>
@@ -165,7 +162,6 @@ const AddAddress = () => {
                     <ErrorMessage name="parkPublicOrPrivate" component="div" />
                   </div>
 
-                  
                   <div className="mt-2">
                     <label className="mr-5 mb-2">Payant (ne pas cocher si gratuit)</label>
                     <Field type="checkbox" name="parkFreeOrPaid" class="w-5 h-4"/>
@@ -181,7 +177,7 @@ const AddAddress = () => {
                   )}
                 </>
               )}
-              
+
               <div className="flex justify-center mt-10 px-5 py-5">
               <Button type="submit">Submit</Button>
               </div>
@@ -190,7 +186,7 @@ const AddAddress = () => {
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AddAddress;
+export default AddAddress

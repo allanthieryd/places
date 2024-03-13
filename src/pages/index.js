@@ -1,55 +1,55 @@
-import { useState, useRef, useEffect } from "react";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "@fontsource/montserrat";
-import RestaurantInfos from "@/components/RestaurantsInfos";
-import MuseumsInfos from "@/components/MuseumsInfos";
-import BarsInfos from "@/components/BarsInfos";
-import ParcsInfos from "@/components/ParcsInfos";
-import AddressModel from "@/database/models/AddressModel";
+import { useState, useRef, useEffect } from 'react'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '@fontsource/montserrat'
+import RestaurantInfos from '@/components/RestaurantsInfos'
+import MuseumsInfos from '@/components/MuseumsInfos'
+import BarsInfos from '@/components/BarsInfos'
+import ParcsInfos from '@/components/ParcsInfos'
+import AddressModel from '@/database/models/AddressModel'
 
 const HomePage = () => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-  const [distance, setDistance] = useState(50);
-  const [addresses, setAddresses] = useState([]);
+  const [isMenuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
+  const [distance, setDistance] = useState(50)
+  const [addresses, setAddresses] = useState([])
 
   useEffect(() => {
     // Fetch data from the MongoDB database using the AddressModel
     const fetchData = async () => {
       try {
-        const data = await AddressModel.find();
-        setAddresses(data);
+        const data = await AddressModel.find()
+        setAddresses(data)
       } catch (error) {
-        console.error("Error fetching data from the database:", error);
+        console.error('Error fetching data from the database:', error)
       }
-    };
+    }
 
-    fetchData(); // Call the function to fetch data when the component mounts
-  }, []);
+    fetchData() // Call the function to fetch data when the component mounts
+  }, [])
 
   const handleToggleMenu = (event) => {
-    console.log("Menu clicked !");
-    event.stopPropagation();
-    setMenuOpen(!isMenuOpen);
-  };
+    console.log('Menu clicked !')
+    event.stopPropagation()
+    setMenuOpen(!isMenuOpen)
+  }
 
   const handleCloseMenu = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setMenuOpen(false);
+      setMenuOpen(false)
     }
-  };
+  }
 
   const handleDistanceChange = (newDistance) => {
-    setDistance(newDistance);
-  };
+    setDistance(newDistance)
+  }
 
   useEffect(() => {
-    document.addEventListener("click", handleCloseMenu);
+    document.addEventListener('click', handleCloseMenu)
     return () => {
-      document.removeEventListener("click", handleCloseMenu);
-    };
-  }, []);
+      document.removeEventListener('click', handleCloseMenu)
+    }
+  }, [])
 
   return (
     <main className="dark:bg-gray-900 dark:text-white">
@@ -81,7 +81,7 @@ const HomePage = () => {
                   value={distance}
                   step="10"
                   onChange={(e) => {
-                    handleDistanceChange(e.target.value);
+                    handleDistanceChange(e.target.value)
                   }}
                 />
                 <label htmlFor="distance"> {distance} Km</label>
@@ -116,8 +116,8 @@ const HomePage = () => {
                 <tr
                   className={
                     index % 2 === 0
-                      ? "even:bg-gray-100 dark:even:bg-gray-800"
-                      : "odd:bg-white dark:odd:bg-gray-700"
+                      ? 'even:bg-gray-100 dark:even:bg-gray-800'
+                      : 'odd:bg-white dark:odd:bg-gray-700'
                   }
                   key={index}
                 >
@@ -134,7 +134,7 @@ const HomePage = () => {
         )}
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
