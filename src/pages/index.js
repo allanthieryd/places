@@ -7,6 +7,7 @@ import MuseumsInfos from "@/components/MuseumsInfos"
 import BarsInfos from "@/components/BarsInfos"
 import ParcsInfos from "@/components/ParcsInfos"
 import axios from "axios"
+import Link from "next/link"
 
 export const getServerSideProps = async () => {
   const { data: addresses } = await axios("http://localhost:3000/api/addresses")
@@ -42,22 +43,6 @@ const HomePage = (props) => {
     return () => {
       document.removeEventListener("click", handleCloseMenu)
     }
-  }, [])
-
-  // Fonction pour récupérer les adresses depuis l'API
-  const fetchAddresses = async () => {
-      const response = await fetch("@/api/createRoute")
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data")
-      }
-
-      setAddresses(addresses)
-  }
-
-  // Appelez la fonction fetchAddresses lorsque votre composant HomePage est monté
-  useEffect(() => {
-    fetchAddresses()
   }, [])
 
   return (
@@ -108,41 +93,38 @@ const HomePage = (props) => {
           </div>
         )}
       </div>
-
+      <Link href="/edit">
       <div className="flex justify-end mr-6 md:mr-12 lg:mr-24 ">
         {addresses && addresses.length > 0 ? (
           <table className="w-1/2 border text-xs">
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-900">
                 <th className="p-3">Address</th>
-                <th className="p-3">City</th>
-                <th className="p-3">Name</th>
+                <th className="p-3">City</th>                
                 <th className="p-3">Country</th>
+                <th className="p-3">Name</th>
                 <th className="p-3">Type</th>
               </tr>
             </thead>
             <tbody>
               {addresses.map((address, index) => (
-                <tr
-                  className={
-                    index % 2 === 0
-                      ? "even:bg-gray-100 dark:even:bg-gray-800"
-                      : "odd:bg-white dark:odd:bg-gray-700"
-                  }
+                <tr className= "even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700"
                   key={index}
                 >
                   <td className="p-3">{address.address}</td>
-                  <td className="p-3">{address.name}</td>
+                  <td className="p-3">{address.city}</td>
                   <td className="p-3">{address.country}</td>
+                  <td className="p-3">{address.name}</td>
                   <td className="p-3">{address.type}</td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>          
         ) : (
           <p>No addresses found</p>
         )}
       </div>
+      </Link>
     </main>
   )
 }
