@@ -8,11 +8,21 @@ import BarsInfos from "@/components/BarsInfos"
 import ParcsInfos from "@/components/ParcsInfos"
 import axios from "axios"
 
-const HomePage = () => {
+export const getServerSideProps = async () => {
+  const { data: addresses } = await axios("http://localhost:3000/api/addresses")
+
+  return {
+    props: {
+      addresses,
+    },
+  }
+}
+const HomePage = (props) => {
+  const { addresses: initialAddresses } = props
+  const [addresses, setAddresses] = useState([initialAddresses])
   const [isMenuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const [distance, setDistance] = useState(50)
-  const [addresses, setAddresses] = useState([])
   const handleToggleMenu = (event) => {
     event.stopPropagation()
     setMenuOpen(!isMenuOpen)
@@ -34,12 +44,20 @@ const HomePage = () => {
     }
   }, [])
 
+  // Fonction pour récupérer les adresses depuis l'API
+  const fetchAddresses = async () => {
+      const response = await fetch("@/api/createRoute")
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data")
+      }
+
+      setAddresses(addresses)
+  }
+
+  // Appelez la fonction fetchAddresses lorsque votre composant HomePage est monté
   useEffect(() => {
-    axios
-      .get("/api/addresses")
-      .then((response) => {
-        setAddresses(response.data)
-      })
+    fetchAddresses()
   }, [])
 
   return (
@@ -97,6 +115,7 @@ const HomePage = () => {
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-900">
                 <th className="p-3">Address</th>
+                <th className="p-3">City</th>
                 <th className="p-3">Name</th>
                 <th className="p-3">Country</th>
                 <th className="p-3">Type</th>
