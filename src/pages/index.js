@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react"
-import { faFilter } from "@fortawesome/free-solid-svg-icons"
+import { faFilter, faRefresh } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fontsource/montserrat"
 import RestaurantInfos from "@/components/RestaurantsInfos"
@@ -20,7 +20,7 @@ export const getServerSideProps = async () => {
 }
 const HomePage = (props) => {
   const { addresses: initialAddresses } = props
-  const addresses = useState([initialAddresses])
+  const [addresses, setAddresses] = useState(initialAddresses);
   const [isMenuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const [distance, setDistance] = useState(50)
@@ -36,6 +36,14 @@ const HomePage = (props) => {
   const handleDistanceChange = (newDistance) => {
     setDistance(newDistance)
   }
+  const handleFetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/addresses");
+      setAddresses(response.data); // Met à jour les adresses avec les données récupérées depuis l'API
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     document.addEventListener("click", handleCloseMenu)
@@ -93,12 +101,13 @@ const HomePage = (props) => {
           </div>
         )}
       </div>
-      <Link href="/edit">
       <div className="flex justify-end mr-6 md:mr-12 lg:mr-24 ">
         {addresses && addresses.length > 0 ? (
-          <table className="w-1/2 border text-xs">
+          <table className="w-1/2">
             <thead>
-              <tr className="bg-gray-200 dark:bg-gray-900">
+            <button onClick={handleFetchData}>
+      <FontAwesomeIcon icon={faRefresh} size="3x" className="flex justify-end mr-6 md:mr-12 lg:mr-24 "/></button>
+              <tr className="bg-gray-200 dark:bg-gray-800">
                 <th className="p-3">Address</th>
                 <th className="p-3">City</th>                
                 <th className="p-3">Country</th>
@@ -108,14 +117,14 @@ const HomePage = (props) => {
             </thead>
             <tbody>
               {addresses.map((address, index) => (
-                <tr className= "even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700"
+                <tr className= "even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center"
                   key={index}
                 >
-                  <td className="p-3">{address.address}</td>
-                  <td className="p-3">{address.city}</td>
-                  <td className="p-3">{address.country}</td>
-                  <td className="p-3">{address.name}</td>
-                  <td className="p-3">{address.type}</td>
+                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.address}</Link></td>
+                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.city}</Link></td>
+                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.name}</Link></td>
+                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.name}</Link></td>
+                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.type}</Link></td>
                 </tr>
               ))}
             </tbody>
@@ -124,7 +133,6 @@ const HomePage = (props) => {
           <p>No addresses found</p>
         )}
       </div>
-      </Link>
     </main>
   )
 }
