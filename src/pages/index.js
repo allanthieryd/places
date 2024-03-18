@@ -20,7 +20,7 @@ export const getServerSideProps = async () => {
 }
 const HomePage = (props) => {
   const { addresses: initialAddresses } = props
-  const [addresses, setAddresses] = useState([initialAddresses])
+  const addresses = useState([initialAddresses])
   const [isMenuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const [distance, setDistance] = useState(50)
