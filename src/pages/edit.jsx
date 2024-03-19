@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import { Button } from "@/components/Button"
-import PlaceInfos from "@/components/index/PlaceInfos"
+import PlaceInfos from "@/components/add_address/PlaceInfos"
 
 const EditAddress = () => {
   const initialValues = {
