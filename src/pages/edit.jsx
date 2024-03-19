@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import { Button } from "@/components/Button"
-import PlaceInfos from "@/components/PlaceInfos"
+import PlaceInfos from "@/components/index/PlaceInfos"
 
 const EditAddress = () => {
   const initialValues = {
@@ -34,7 +34,7 @@ const EditAddress = () => {
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {() => (
             <Form>
-                <PlaceInfos/>            
+                <PlaceInfos/>       
 
               <div className="flex justify-center mt-10 px-5 py-5">
                 <Button type="submit">Submit</Button>

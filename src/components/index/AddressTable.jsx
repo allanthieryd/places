@@ -1,8 +1,19 @@
-import Link from "next/link";
+import { faRefresh } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import axios from "axios"
+import Link from "next/link"
 
-const AddressTable = ({ addresses }) => {
+const AddressTable = ({ addresses, setAddresses }) => {
+  const handleFetchData = async () => {
+      const response = await axios.get("http://localhost:3000/api/addresses")
+      setAddresses(response.data)
+  }
+
   return (
-    <div className="flex justify-end mr-6 md:mr-12 lg:mr-24">
+    <div className="flex justify-end mr-6 md:mr-12 lg:mr-24 ">
+      <button onClick={handleFetchData}>
+        <FontAwesomeIcon icon={faRefresh} className="lg:text-md md:text-3xl sm:2xl"/>
+      </button>
       {addresses && addresses.length > 0 ? (
         <table className="w-1/2">
           <thead>
@@ -17,13 +28,7 @@ const AddressTable = ({ addresses }) => {
           <tbody>
             {addresses.map((address, index) => (
               <tr
-                className={
-                  index % 2 === 0
-                    ? "even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs"
-                    : "odd:bg-white dark:odd:bg-gray-700 border text-xs"
-                }
-                key={index}
-              >
+                className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center" key={index}>
                 <td className="p-3 border border-slate-400">
                   <Link href="/edit">{address.address}</Link>
                 </td>
@@ -31,7 +36,7 @@ const AddressTable = ({ addresses }) => {
                   <Link href="/edit">{address.city}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.country}</Link>
+                  <Link href="/edit">{address.name}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
                   <Link href="/edit">{address.name}</Link>
@@ -47,7 +52,7 @@ const AddressTable = ({ addresses }) => {
         <p>No addresses found</p>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AddressTable;
+export default AddressTable

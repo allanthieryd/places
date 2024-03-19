@@ -1,0 +1,44 @@
+import React from "react"
+import { Field, ErrorMessage } from "formik"
+import PlaceInfos from "./PlaceInfos"
+import Stars from "@/components/Stars"
+
+const RestaurantForm = ({ values }) => (
+  <>
+    <br />
+    <PlaceInfos />
+    <div>
+      <label>Type de cuisine</label>
+      <Field
+        as="select"
+        name="artType"
+        className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
+      >
+        <option value="frenchCuisine">Française</option>
+        <option value="italianCuisine">Italienne</option>
+        <option value="italianCuisine">Indienne</option>
+      </Field>
+    </div>
+
+    <div>
+      <label>Nombre d'étoiles</label>
+      <Stars />
+    </div>
+
+    <div>
+      <label>Prix moyen</label>
+      <Field
+        type="range"
+        name="priceRange"
+        min="0"
+        max="100"
+        step="10"
+        className="dark:bg-gray-700 ml-5 mb-2"
+      />
+      <span> {values.priceRange} euros</span>
+      <ErrorMessage name="priceRange" component="div" />
+    </div>
+  </>
+)
+
+export default RestaurantForm

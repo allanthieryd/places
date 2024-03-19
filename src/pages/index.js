@@ -1,13 +1,8 @@
 import { useState, useRef, useEffect } from "react"
-import { faFilter, faRefresh } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fontsource/montserrat"
-import RestaurantInfos from "@/components/RestaurantsInfos"
-import MuseumsInfos from "@/components/MuseumsInfos"
-import BarsInfos from "@/components/BarsInfos"
-import ParcsInfos from "@/components/ParcsInfos"
 import axios from "axios"
-import Link from "next/link"
+import Filter from "@/components/index/Filter"
+import AddressTable from "@/components/index/AddressTable"
 
 export const getServerSideProps = async () => {
   const { data: addresses } = await axios("http://localhost:3000/api/addresses")
@@ -20,7 +15,7 @@ export const getServerSideProps = async () => {
 }
 const HomePage = (props) => {
   const { addresses: initialAddresses } = props
-  const [addresses, setAddresses] = useState(initialAddresses);
+  const [addresses, setAddresses] = useState(initialAddresses)
   const [isMenuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const [distance, setDistance] = useState(50)
@@ -36,14 +31,6 @@ const HomePage = (props) => {
   const handleDistanceChange = (newDistance) => {
     setDistance(newDistance)
   }
-  const handleFetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/addresses");
-      setAddresses(response.data); // Met à jour les adresses avec les données récupérées depuis l'API
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
   useEffect(() => {
     document.addEventListener("click", handleCloseMenu)
@@ -55,84 +42,14 @@ const HomePage = (props) => {
 
   return (
     <main className="dark:bg-gray-900 dark:text-white">
-      <div className="ml-12 mt-4 relative">
-        <div className="mt-28">
-          {/* Bouton du menu déroulant */}
-
-          <button onClick={handleToggleMenu} className="p-2">
-            <FontAwesomeIcon icon={faFilter} size="3x" />
-          </button>
-        </div>
-
-        {/* Menu déroulant */}
-        {isMenuOpen && (
-          <div
-            ref={menuRef}
-            className="ml-50 h-5/6 md:h-3/4 lg:h-2/3 w-3/4 md:w-1/2 lg:w-5/12 fixed bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800"
-          >
-            {/* Contenu du menu déroulant */}
-            <ul className="leading-loose">
-              <li>
-                <p className="">Distance</p>
-                <input
-                  type="range"
-                  id="distance"
-                  name="distance"
-                  min="0"
-                  max="100"
-                  value={distance}
-                  step="10"
-                  onChange={(e) => {
-                    handleDistanceChange(e.target.value)
-                  }}
-                />
-                <label htmlFor="distance"> {distance} Km</label>
-              </li>
-              <li>
-                <p className="mt-2">Types de lieux</p>
-                <div className="flex justify-around flex-wrap text-sm sm:text-xs text-center">
-                  <RestaurantInfos />
-                  <BarsInfos />
-                  <ParcsInfos />
-                  <MuseumsInfos />
-                </div>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-      <div className="flex justify-end mr-6 md:mr-12 lg:mr-24 ">
-        {addresses && addresses.length > 0 ? (
-          <table className="w-1/2">
-            <thead>
-            <button onClick={handleFetchData}>
-      <FontAwesomeIcon icon={faRefresh} size="3x" className="flex justify-end mr-6 md:mr-12 lg:mr-24 "/></button>
-              <tr className="bg-gray-200 dark:bg-gray-800">
-                <th className="p-3">Address</th>
-                <th className="p-3">City</th>                
-                <th className="p-3">Country</th>
-                <th className="p-3">Name</th>
-                <th className="p-3">Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              {addresses.map((address, index) => (
-                <tr className= "even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center"
-                  key={index}
-                >
-                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.address}</Link></td>
-                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.city}</Link></td>
-                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.name}</Link></td>
-                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.name}</Link></td>
-                  <td className="p-3 border border-slate-400"><Link href="/edit">{address.type}</Link></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>          
-        ) : (
-          <p>No addresses found</p>
-        )}
-      </div>
+      <Filter
+        isMenuOpen={isMenuOpen}
+        handleToggleMenu={handleToggleMenu}
+        menuRef={menuRef}
+        distance={distance}
+        handleDistanceChange={handleDistanceChange}
+      />
+      <AddressTable addresses={addresses} setAddresses={setAddresses} />
     </main>
   )
 }

@@ -24,38 +24,22 @@ const RestaurantInfos = () => {
                   Restaurants
                   </label>
                   <br></br>
-
               {isRestaurantsChecked && (
-              <>
-                <div>
+              <><div>
                   <label>Type de cuisine</label>
                   <select
-                    name="cuisineType"
-                    value={selectedCuisine}
-                    onChange={(e) => setSelectedCuisine(e.target.value)}
-                    className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
-                  >
+                    name="cuisineType" value={selectedCuisine} onChange={(e) => setSelectedCuisine(e.target.value)} className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0">
                     <option value="frenchCuisine">Française</option>
                     <option value="italianCuisine">Italienne</option>
                     <option value="indianCuisine">Indienne</option>
                   </select>
                 </div>
-
-                <div>
-                  <label>Nombre d'étoiles</label>
-                  <Stars className="text-xs" />
-                </div>
-                <br></br>
+                <div><label>Nombre d'étoiles</label><Stars className="text-xs" /></div><br></br>
                 <div>
                   <label className="mr-2">Prix moyen</label>
                   <input
-                    type="range"
-                    id="priceRange"
-                    name="priceRange"
-                    min="0"
-                    max="100"
-                    value={priceRange}
-                    step="10"
+                type="range" id="priceRange" name="priceRange" min="0" max="100"
+                value={priceRange} step="10"
                     onChange={(e) => {
                       handlePriceRangeChange(e.target.value)
                     }}                     
@@ -64,7 +48,7 @@ const RestaurantInfos = () => {
                 </div>
               </>
               )}
-            </div>
+        </div>
     </main>
   )
 }
