@@ -6,9 +6,8 @@ import BarsInfos from "./BarsInfos"
 import ParcsInfos from "./ParcsInfos"
 const Filter = ({
   isMenuOpen,handleToggleMenu,menuRef,distance,handleDistanceChange}) => (
-  <div className="ml-12 mt-4 relative">
-    <div className="mt-28">
-      {/* Bouton du menu déroulant */}
+  <div className="ml-12 mt-4">
+    <div className="mt-32">
       <button onClick={handleToggleMenu} className="p-2">
         <FontAwesomeIcon icon={faFilter} size="3x" />
       </button>

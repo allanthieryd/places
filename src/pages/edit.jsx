@@ -25,7 +25,7 @@ const EditAddress = () => {
   }
 
   return (
-    <div className="flex justify-center mt-32">
+    <div className="flex justify-center mt-32 pt-5">
       <div className="px-36 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
         <h1 className="text-2xl flex justify-center">
           Modifier une adresse

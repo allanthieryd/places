@@ -10,9 +10,9 @@ const AddressTable = ({ addresses, setAddresses }) => {
   }
 
   return (
-    <div className="flex justify-end mr-6 md:mr-12 lg:mr-24 ">
+    <div className="flex justify-end mr-6 md:mr-12 lg:mr-24">
       <button onClick={handleFetchData}>
-        <FontAwesomeIcon icon={faRefresh} className="lg:text-md md:text-3xl sm:2xl"/>
+        <FontAwesomeIcon icon={faRefresh} className="absolute top-36 lg:text-md md:text-3xl sm:2xl"/>
       </button>
       {addresses && addresses.length > 0 ? (
         <table className="w-1/2">
@@ -36,7 +36,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
                   <Link href="/edit">{address.city}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.name}</Link>
+                  <Link href="/edit">{address.country}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
                   <Link href="/edit">{address.name}</Link>
