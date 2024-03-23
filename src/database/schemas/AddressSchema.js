@@ -10,7 +10,7 @@ export const addressSchema = new Schema({
     type: String,
     required: true,
   },
-  address: {
+  street: {
     type: String,
     required: true,
   },
@@ -33,7 +33,7 @@ export const addressSchema = new Schema({
     min: 1,
     max: 3,
   },
-  averagePrice: {
+  cuisineAveragePrice: {
     type: Number,
     min: 1,
     max: 5,

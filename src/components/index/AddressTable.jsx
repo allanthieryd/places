@@ -30,7 +30,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
               <tr
                 className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center" key={index}>
                 <td className="p-3 border border-slate-400">
-                  <Link href={`/addresses/${address._id}/edit`}>{address.address}</Link>
+                  <Link href={`/addresses/${address._id}/edit`}>{address.street}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
                   <Link href={`/addresses/${address._id}/edit`}>{address.city}</Link>

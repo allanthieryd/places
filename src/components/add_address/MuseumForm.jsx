@@ -10,12 +10,13 @@ const MuseumForm = ({ values }) => (
       <label>Courant artistique</label>
       <Field
         as="select"
-        name="artType"
+        name="artMovement"
         className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
       >
         <option value="modernArt">Art moderne</option>
         <option value="abstractArt">Art abstrait</option>
       </Field>
+      <ErrorMessage name="artMovement" component="div" />
     </div>
 
     <div>
@@ -33,19 +34,19 @@ const MuseumForm = ({ values }) => (
 
     <div>
       <label className="mr-5 mb-2">Payant (ne pas cocher si gratuit)</label>
-      <Field type="checkbox" name="museumFreeOrPaid" class="w-5 h-4" />
-      <ErrorMessage name="museumFreeOrPaid" component="div" />
+      <Field type="checkbox" name="freeOrPaid" class="w-5 h-4" />
+      <ErrorMessage name="freeOrPaid" component="div" />
     </div>
 
-    {values.museumFreeOrPaid && (
+    {values.freeOrPaid && (
       <div className="mt-2">
         <label>Prix</label>
         <Field
           type="number"
-          name="museumPrice"
+          name="price"
           className="dark:bg-gray-700 ml-5 mb-2"
         />
-        <ErrorMessage name="museumPrice" component="div" />
+        <ErrorMessage name="price" component="div" />
       </div>
     )}
   </>

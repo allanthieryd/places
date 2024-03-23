@@ -1,9 +1,9 @@
 import { createRoute } from "@/api/createRoute"
-import { AdressModel } from "@/database/models/AdressModel"
+import { AddressModel } from "@/database/models/AddressModel"
 
 const handler = createRoute(async (req, res) => {
   const { addressId } = req.query
-  const address = await AdressModel.findById(addressId)
+  const address = await AddressModel.findById(addressId)
 
   if (!address) {
     res.status(404).send({ error: "not found" })
@@ -20,11 +20,14 @@ const handler = createRoute(async (req, res) => {
 
   // PATCH /address/[addressId] -> update resource item
   if (req.method === "PATCH") {
-    const { description, category, isDone } = req.body
+    const { name, street, city, postalCode, type, isDone } = req.body
 
     Object.assign(address, {
-      description: description || address.description,
-      category: category || address.category,
+      name: name || address.name,
+      street: street || address.street,
+      city: city || address.city,
+      postalCode: postalCode || address.postalCode,
+      type: type || address.type,
       isDone: isDone ?? address.isDone,
     })
 

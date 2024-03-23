@@ -10,36 +10,37 @@ const ParkForm = ({ values }) => (
       <label>Type de parc</label>
       <Field
         as="select"
-        name="parkType"
+        name="parcType"
         className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
       >
         <option value="floralPark">Parc floral</option>
         <option value="forestPark">Parc forestier</option>
         <option value="childrenPark">Parc pour enfants</option>
       </Field>
+      <ErrorMessage name="parcType" component="div" />
     </div>
 
     <div>
       <label className="mr-5 mb-2">Public</label>
-      <Field type="checkbox" name="parkPublicOrPrivate" class="w-5 h-4" />
-      <ErrorMessage name="parkPublicOrPrivate" component="div" />
+      <Field type="checkbox" name="publicOrPrivate" class="w-5 h-4" />
+      <ErrorMessage name="publicOrPrivate" component="div" />
     </div>
 
     <div className="mt-2">
       <label className="mr-5 mb-2">Payant (ne pas cocher si gratuit)</label>
-      <Field type="checkbox" name="parkFreeOrPaid" class="w-5 h-4" />
-      <ErrorMessage name="parkFreeOrPaid" component="div" />
+      <Field type="checkbox" name="freeOrPaid" class="w-5 h-4" />
+      <ErrorMessage name="freeOrPaid" component="div" />
     </div>
 
-    {values.parkFreeOrPaid && (
+    {values.freeOrPaid && (
       <div className="mt-2">
         <label>Prix</label>
         <Field
           type="number"
-          name="parkPrice"
+          name="price"
           className="dark:bg-gray-700 ml-5 mb-2"
         />
-        <ErrorMessage name="parkPrice" component="div" />
+        <ErrorMessage name="price" component="div" />
       </div>
     )}
   </>

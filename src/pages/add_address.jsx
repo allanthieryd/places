@@ -6,15 +6,62 @@ import MuseumForm from "@/components/add_address/MuseumForm"
 import BarForm from "@/components/add_address/BarForm"
 import ParkForm from "@/components/add_address/ParkForm"
 import SubmitButton from "@/components/add_address/SubmitButton"
+import axios from "axios"
+import * as yup from "yup"
 
-const AddAddress = () => {
+export const getServerSideProps = async () => {
+  const { data: addresses } = await axios("http://localhost:3000/api/addresses")
+
+  return {
+    props: {
+      addresses,
+    },
+  }
+}
+const validationSchema = yup.object({
+  name: yup.string().min(3).required("Le nom du lieu est requis"),
+  street: yup.string().min(3).required("La rue est requise"),
+  city: yup.string().min(3).required("La ville est requise"),
+  postalCode: yup.string().min(3).required("Le code postal est requis"),
+  country: yup.string().min(3).required("Le pays est requis"),
+})
+// eslint-disable-next-line max-lines-per-function
+const AddAddress = (props) => {
+  const { addresses: initialAddresses } = props
+  const [addresses, setAddresses] = useState(initialAddresses)
+  const submit = async ({
+    name, street, city, country, postalCode, type, averagePrice, price, 
+    freeOrPaid, starRating, cuisineType, artMovement, artType, parcType,
+    publicOrPrivate, barType
+    
+     }, { resetForm }) => {
+    const { data: newAddress } = await axios.post("/api/addresses", {
+      name,
+      street,
+      city,
+      country,
+      postalCode,
+      type,
+      averagePrice,
+      price,
+      freeOrPaid,
+      starRating,
+      cuisineType,
+      artMovement,
+      artType,
+      parcType,
+      publicOrPrivate,
+      barType
+
+    })
+    setAddresses([newAddress, ...addresses])
+    resetForm()
+  }
   const [selectedType, setSelectedType] = useState(null)
   const handleTypeSelect = (type) => {
     setSelectedType(type)
   }
-  const handleSubmit = (values, { setSubmitting }) => {
-    setSubmitting(false)
-  }
+
 
   return (
     <div className="flex justify-center mt-32 pt-5">
@@ -27,15 +74,10 @@ const AddAddress = () => {
           <TypeSelector handleTypeSelect={handleTypeSelect} />
         </div>
 
-        <Formik
-          initialValues={{cuisineType: "", starRating: 1, priceRange: 50,
-            artStyle: "", artType: "", museumFreeOrPaid: false,
-            museumPrice: 1, barType: "", barPriceRange: 1,
-            parkType: "", parkPublicOrPrivate: false,
-            parkFreeOrPaid: false, parkPrice: 1,
-          }}
-          onSubmit={handleSubmit}
-        >
+        <Formik initialValues={{starRating: 0, averagePrice: 50,
+            museumFreeOrPaid: false, museumPrice: 1, barPriceRange: 1,
+            parkPublicOrPrivate: false, parkFreeOrPaid: false, parkPrice: 1,
+          }} onSubmit={submit} validationSchema={validationSchema}>
           {({ values }) => (
             <Form>
               {selectedType === "restaurant" && <RestaurantForm values={values} />}
@@ -43,7 +85,7 @@ const AddAddress = () => {
               {selectedType === "bar" && <BarForm values={values} />}
               {selectedType === "park" && <ParkForm values={values} />}
 
-              <div className="flex justify-center mt-0 px-5 py-5">
+              <div className="flex justify-center mt-0 px-5 py-5 text-2xl">
                 <SubmitButton type="submit">Submit</SubmitButton>
               </div>
             </Form>

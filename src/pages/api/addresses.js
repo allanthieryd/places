@@ -12,9 +12,9 @@ const handler = createRoute(async (req, res) => {
 
   // POST /addresses -> create resource
   if (req.method === "POST") {
-    const { address, city, name, country, type } = req.body
+    const { street, city, name, country, type } = req.body
     const newAddress = new AddressModel({
-      address,
+      street,
       city,
       name,
       country,

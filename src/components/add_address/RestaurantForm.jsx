@@ -11,7 +11,7 @@ const RestaurantForm = ({ values }) => (
       <label>Type de cuisine</label>
       <Field
         as="select"
-        name="artType"
+        name="cuisineType"
         className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
       >
         <option value="frenchCuisine">Française</option>
@@ -29,14 +29,14 @@ const RestaurantForm = ({ values }) => (
       <label>Prix moyen</label>
       <Field
         type="range"
-        name="priceRange"
+        name="averagePrice"
         min="0"
         max="100"
         step="10"
         className="dark:bg-gray-700 ml-5 mb-2"
       />
-      <span> {values.priceRange} euros</span>
-      <ErrorMessage name="priceRange" component="div" />
+      <span> {values.averagePrice} euros</span>
+      <ErrorMessage name="averagePrice" component="div" />
     </div>
   </>
 )

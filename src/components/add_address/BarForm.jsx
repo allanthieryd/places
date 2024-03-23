@@ -23,14 +23,14 @@ const BarForm = ({ values }) => (
       <label>Prix moyen</label>
       <Field
         type="range"
-        name="barPriceRange"
+        name="averagePrice"
         min="0"
         max="100"
         step="10"
         className="dark:bg-gray-700 ml-5 mb-2"
       />
-      <span> {values.barPriceRange} euros</span>
-      <ErrorMessage name="barPriceRange" component="div" />
+      <span> {values.averagePrice} euros</span>
+      <ErrorMessage name="averagePrice" component="div" />
     </div>
   </>
 )
