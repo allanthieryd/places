@@ -15,7 +15,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
         <FontAwesomeIcon icon={faRefresh} className="absolute top-36 lg:text-md md:text-3xl sm:2xl"/>
       </button>
       {addresses && addresses.length > 0 ? (
-        <table className="w-1/2">
+        <table className="w-1/2 mb-5">
           <thead>
             <tr className="bg-gray-200 dark:bg-gray-800">
               <th className="p-3">Address</th>
@@ -30,19 +30,19 @@ const AddressTable = ({ addresses, setAddresses }) => {
               <tr
                 className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center" key={index}>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.address}</Link>
+                  <Link href={`/addresses/${address._id}/edit`}>{address.address}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.city}</Link>
+                  <Link href={`/addresses/${address._id}/edit`}>{address.city}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.country}</Link>
+                  <Link href={`/addresses/${address._id}/edit`}>{address.country}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.name}</Link>
+                  <Link href={`/addresses/${address._id}/edit`}>{address.name}</Link>
                 </td>
                 <td className="p-3 border border-slate-400">
-                  <Link href="/edit">{address.type}</Link>
+                  <Link href={`/addresses/${address._id}/edit`}>{address.type}</Link>
                 </td>
               </tr>
             ))}

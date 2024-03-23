@@ -16,7 +16,7 @@ const RestaurantForm = ({ values }) => (
       >
         <option value="frenchCuisine">Française</option>
         <option value="italianCuisine">Italienne</option>
-        <option value="italianCuisine">Indienne</option>
+        <option value="indianCuisine">Indienne</option>
       </Field>
     </div>
 

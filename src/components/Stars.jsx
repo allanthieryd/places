@@ -13,7 +13,7 @@ const Stars = () => {
     return (
         <main>
             <div className="w-42 flex gap-1 flex-wrap">
-                  {[1, 2, 3, 4, 5].map((index) => (
+                  {[1, 2, 3].map((index) => (
                     <FontAwesomeIcon
                       key={index}
                       icon={faStar}

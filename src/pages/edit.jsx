@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import { Button } from "@/components/Button"

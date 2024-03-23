@@ -38,9 +38,7 @@ const AddAddress = () => {
         >
           {({ values }) => (
             <Form>
-              {selectedType === "restaurant" && (
-                <RestaurantForm values={values} />
-              )}
+              {selectedType === "restaurant" && <RestaurantForm values={values} />}
               {selectedType === "museum" && <MuseumForm values={values} />}
               {selectedType === "bar" && <BarForm values={values} />}
               {selectedType === "park" && <ParkForm values={values} />}
