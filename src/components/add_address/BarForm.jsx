@@ -1,11 +1,9 @@
 import React from "react"
 import { Field, ErrorMessage } from "formik"
-import PlaceInfos from "./PlaceInfos"
 
 const BarForm = ({ values }) => (
   <>
     <br />
-    <PlaceInfos />
     <div>
       <label>Type de bar</label>
       <Field

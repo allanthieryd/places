@@ -1,9 +1,13 @@
 import React from "react"
 import { Formik, Form } from "formik"
 import { Button } from "@/components/Button"
-import PlaceInfos from "@/components/add_address/PlaceInfos"
+import MuseumForm from "@/components/add_address/MuseumForm"
+import ParkForm from "@/components/add_address/ParkForm"
+import RestaurantForm from "@/components/add_address/RestaurantForm"
+import BarForm from "@/components/add_address/BarForm"
 import axios from "axios"
 import { useRouter } from "next/router"
+import PlaceInfos from "@/components/add_address/PlaceInfos"
 
 export const getServerSideProps = async ({ params: { addressId } }) => {
   const { data: address } = await axios(
@@ -16,31 +20,48 @@ export const getServerSideProps = async ({ params: { addressId } }) => {
 }
 const EditAddress = ({ address }) => {
   const router = useRouter()
-  const initialValues = address
-  const handleSubmit = async ({ _id, name, street, city, postalCode, type }) => {
-    await axios.patch(`/api/addresses/${_id}`, { name, street, city, postalCode, type })
+  const handleSubmit = async (formData) => {
+    const { _id, ...rest } = formData
+    await axios.patch(`/api/addresses/${_id}`, { ...rest })
     router.push(`/addresses/${_id}`)
   }
   const handleDelete = async () => {
       await axios.delete(`/api/addresses/${address._id}`)
       router.push("/")
   }
+  const renderPlaceForm = () => {
+    switch (address.type) {
+      case "Musée":
+        return <MuseumForm initialValues={address} onSubmit={handleSubmit} values={address} />
+
+      case "Parc":
+        return <ParkForm initialValues={address} onSubmit={handleSubmit} values={address} />
+
+      case "Restaurant":
+        return <RestaurantForm initialValues={address} onSubmit={handleSubmit} values={address} averagePrice={address.averagePrice}/>
+
+      case "Bar":
+        return <BarForm initialValues={address} onSubmit={handleSubmit} values={address} />
+
+      default:
+        return null
+    }
+  }
 
   return (
     <div className="flex justify-center mt-32 pt-5">
-      <div className="px-36 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
-        <h1 className="text-2xl flex justify-center">Modifier une adresse</h1>
-        <br></br>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <div className="px-6 lg:px-32 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
+        <h1 className="text-2xl flex justify-center">Modifier une adresse</h1><br></br>
+        <Formik initialValues={address} onSubmit={handleSubmit}>
           {() => (
             <Form>
-              <span>Type de lieu</span><span className="ml-5">{address.type}</span>
-              <div className="mt-2"></div>
+              <div className="ml-0 sm:ml-6 mb-2">
+              <span>Type de lieu</span><span className="ml-6">{address.type}</span>
+              </div>
               <PlaceInfos />
-
-              <div className="flex justify-center space-x-32 mt-10 px-5 py-5 text-2xl">
-                <Button onClick={handleDelete}>Delete</Button>
-                <Button type="submit">Submit</Button>
+              {renderPlaceForm()}
+              <div className="flex justify-center space-x-12 lg:space-x-32 mt-6 px-5 py-5 text-2xl">
+                <Button onClick={handleDelete}>Delete</Button><Button type="submit">Submit</Button>
               </div>
             </Form>
           )}
@@ -49,5 +70,6 @@ const EditAddress = ({ address }) => {
     </div>
   )
 }
+
 
 export default EditAddress

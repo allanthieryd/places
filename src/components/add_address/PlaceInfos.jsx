@@ -3,7 +3,7 @@ import React from "react"
 import { Field, ErrorMessage } from "formik"
 
 const PlaceInfos = () => (
-        <main  className="text-right mr-24">
+        <main  className="text-right mr-16">
             
             <div>
                 <label>Nom du lieu</label>

@@ -10,7 +10,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
   }
 
   return (
-    <div className="flex justify-end mr-6 md:mr-12 lg:mr-24">
+    <div className="flex justify-end mr-2 md:mr-12 lg:mr-24">
       <button onClick={handleFetchData}>
         <FontAwesomeIcon icon={faRefresh} className="absolute top-36 lg:text-md md:text-3xl sm:2xl"/>
       </button>

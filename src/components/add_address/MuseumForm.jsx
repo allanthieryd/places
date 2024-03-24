@@ -1,11 +1,9 @@
 import React from "react"
 import { Field, ErrorMessage } from "formik"
-import PlaceInfos from "./PlaceInfos"
 
 const MuseumForm = ({ values }) => (
   <>
     <br />
-    <PlaceInfos />
     <div>
       <label>Courant artistique</label>
       <Field

@@ -15,9 +15,7 @@ const Filter = ({
     {isMenuOpen && (
       <div
         ref={menuRef}
-        className="ml-50 h-5/6 md:h-3/4 lg:h-2/3 w-3/4 md:w-1/2 lg:w-5/12 fixed bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800"
-      >
-        {/* Contenu du menu déroulant */}
+        className="ml-50 h-5/6 md:h-3/4 lg:h-2/3 w-3/4 md:w-1/2 lg:w-5/12 fixed bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800">
         <ul className="leading-loose">
           <li>
             <p className="">Distance</p>

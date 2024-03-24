@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 
 const BarInfos = () => {
-  const [priceRange, setPriceRange] = useState(50)
+  const [averagePrice, setaveragePrice] =  useState(1)
   const [isBarsChecked, setBarsChecked] = useState(false)
   const [selectedBarType, setSelectedBarType] = useState("")
-  const handlePriceRangeChange = (newPriceRange) => {
-    setPriceRange(newPriceRange)
+  const handleAveragePriceChange = (newaveragePrice) => {
+    setaveragePrice(newaveragePrice)
   }
   const handleCheckboxChange = () => {
     setBarsChecked(!isBarsChecked)
@@ -19,8 +19,7 @@ const BarInfos = () => {
             className="w-4 h-4" checked={isBarsChecked}
             onChange={handleCheckboxChange}
           />
-          <br />Bars</label>
-        <br />
+          <br />Bars</label><br />
         {isBarsChecked && (
           <>
             <div>
@@ -38,12 +37,12 @@ const BarInfos = () => {
             <div>
               <label>Prix moyen</label>
               <input
-                type="range" name="priceRange" min="0"
-                max="100" step="10" className="dark:bg-gray-700 ml-5 mb-2"
-                onChange={(e) => { handlePriceRangeChange(e.target.value)}}
-              />
-              <br />
-              <label htmlFor="priceRange">{priceRange} euros</label>
+                type="range" name="averagePrice" min="1" max="5"
+                value={averagePrice} step="1" className="dark:bg-gray-700 ml-5 mb-2"
+                  onChange={(e) => {
+                    handleAveragePriceChange(e.target.value)}}
+              /><br></br>
+              <span>{averagePrice}</span>
             </div>
           </>
         )}

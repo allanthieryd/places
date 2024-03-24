@@ -1,11 +1,9 @@
 import React from "react"
 import { Field, ErrorMessage } from "formik"
-import PlaceInfos from "./PlaceInfos"
 
 const ParkForm = ({ values }) => (
   <>
     <br />
-    <PlaceInfos />
     <div>
       <label>Type de parc</label>
       <Field
@@ -13,9 +11,9 @@ const ParkForm = ({ values }) => (
         name="parcType"
         className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
       >
-        <option value="floralPark">Parc floral</option>
-        <option value="forestPark">Parc forestier</option>
-        <option value="childrenPark">Parc pour enfants</option>
+        <option value="Parc floral">Parc floral</option>
+        <option value="Parc forestier">Parc forestier</option>
+        <option value="Parc pour enfants">Parc pour enfants</option>
       </Field>
       <ErrorMessage name="parcType" component="div" />
     </div>

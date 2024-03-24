@@ -8,6 +8,7 @@ import ParkForm from "@/components/add_address/ParkForm"
 import SubmitButton from "@/components/add_address/SubmitButton"
 import axios from "axios"
 import * as yup from "yup"
+import PlaceInfos from "@/components/add_address/PlaceInfos"
 
 export const getServerSideProps = async () => {
   const { data: addresses } = await axios("http://localhost:3000/api/addresses")
@@ -65,7 +66,7 @@ const AddAddress = (props) => {
 
   return (
     <div className="flex justify-center mt-32 pt-5">
-      <div className="px-36 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
+      <div className="sm:px-24 md:px-32 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
         <h1 className="text-2xl flex justify-center">
           Veuillez entrer un lieu
         </h1>
@@ -79,15 +80,13 @@ const AddAddress = (props) => {
             parkPublicOrPrivate: false, parkFreeOrPaid: false, parkPrice: 1,
           }} onSubmit={submit} validationSchema={validationSchema}>
           {({ values }) => (
-            <Form>
+            <Form><br></br>
+              <PlaceInfos />
               {selectedType === "restaurant" && <RestaurantForm values={values} />}
               {selectedType === "museum" && <MuseumForm values={values} />}
               {selectedType === "bar" && <BarForm values={values} />}
               {selectedType === "park" && <ParkForm values={values} />}
-
-              <div className="flex justify-center mt-0 px-5 py-5 text-2xl">
-                <SubmitButton type="submit">Submit</SubmitButton>
-              </div>
+              <SubmitButton type="submit">Submit</SubmitButton>
             </Form>
           )}
         </Formik>

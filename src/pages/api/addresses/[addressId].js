@@ -20,7 +20,7 @@ const handler = createRoute(async (req, res) => {
 
   // PATCH /address/[addressId] -> update resource item
   if (req.method === "PATCH") {
-    const { name, street, city, postalCode, type, isDone } = req.body
+    const { name, street, city, postalCode, type, averagePrice, price, freeOrPaid, starRating, cuisineType, artMovement, artType, parcType, publicOrPrivate, barType, isDone } = req.body
 
     Object.assign(address, {
       name: name || address.name,
@@ -28,6 +28,16 @@ const handler = createRoute(async (req, res) => {
       city: city || address.city,
       postalCode: postalCode || address.postalCode,
       type: type || address.type,
+      averagePrice: averagePrice || address.averagePrice,
+      price: price || address.price,
+      freeOrPaid: freeOrPaid ?? address.freeOrPaid,
+      starRating: starRating || address.starRating,
+      cuisineType: cuisineType || address.cuisineType,
+      artMovement: artMovement || address.artMovement,
+      artType: artType || address.artType,
+      parcType: parcType || address.parcType,
+      publicOrPrivate: publicOrPrivate || address.publicOrPrivate,
+      barType: barType || address.barType,
       isDone: isDone ?? address.isDone,
     })
 

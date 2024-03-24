@@ -1,12 +1,20 @@
-import React from "react"
-import { Field, ErrorMessage } from "formik"
-import PlaceInfos from "./PlaceInfos"
+import React, { useState } from "react"
+import { Field } from "formik"
 import Stars from "@/components/Stars"
+const RestaurantForm = ({values}) => {
+  const [price, setprice] =  useState(values.averagePrice)
+  const [starRating, setStarRating] = useState(values.starRating)
+  const handlepriceChange = (newprice) => {
+    setprice(newprice)
+  }
+  const handleStarRatingChange = (newRating) => {
+    setStarRating(newRating)
+  }
 
-const RestaurantForm = ({ values }) => (
+return (
   <>
     <br />
-    <PlaceInfos />
+
     <div>
       <label>Type de cuisine</label>
       <Field
@@ -14,31 +22,31 @@ const RestaurantForm = ({ values }) => (
         name="cuisineType"
         className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
       >
-        <option value="frenchCuisine">Française</option>
-        <option value="italianCuisine">Italienne</option>
-        <option value="indianCuisine">Indienne</option>
+        <option value="Française">Française</option>
+        <option value="Italienne">Italienne</option>
+        <option value="Indienne">Indienne</option>
+        <option value="Japonaise">Japonaise</option>
       </Field>
     </div>
 
     <div>
-      <label>Nombre d'étoiles</label>
-      <Stars />
+      <label>Nombre d'étoiles: {starRating}</label>
+      <Stars onRatingChange={handleStarRatingChange}/>
     </div>
 
     <div>
-      <label>Prix moyen</label>
+      <label>Prix moyen </label>
       <Field
-        type="range"
-        name="averagePrice"
-        min="0"
-        max="100"
-        step="10"
-        className="dark:bg-gray-700 ml-5 mb-2"
+          type="range" name="averagePrice" min="1" max="5"
+          value={price} step="1" className="dark:bg-gray-700 ml-5 mb-2"
+            onChange={(e) => {
+              handlepriceChange(e.target.value)
+            }}
       />
-      <span> {values.averagePrice} euros</span>
-      <ErrorMessage name="averagePrice" component="div" />
+      <span className="ml-2">{price}</span>
     </div>
   </>
-)
+  )
+}
 
 export default RestaurantForm
