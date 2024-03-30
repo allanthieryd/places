@@ -28,7 +28,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
           <tbody>
             {addresses.map((address, index) => (
               <tr
-                className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center" key={index}>
+                className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center hover:bg-slate-200" key={index}>
                 <td className="p-3 border border-slate-400">
                   <Link href={`/addresses/${address._id}/edit`}>{address.street}</Link>
                 </td>

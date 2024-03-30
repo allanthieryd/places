@@ -10,15 +10,6 @@ import axios from "axios"
 import * as yup from "yup"
 import PlaceInfos from "@/components/add_address/PlaceInfos"
 
-export const getServerSideProps = async () => {
-  const { data: addresses } = await axios("http://localhost:3000/api/addresses")
-
-  return {
-    props: {
-      addresses,
-    },
-  }
-}
 const validationSchema = yup.object({
   name: yup.string().min(3).required("Le nom du lieu est requis"),
   street: yup.string().min(3).required("La rue est requise"),
@@ -30,31 +21,63 @@ const validationSchema = yup.object({
 const AddAddress = (props) => {
   const { addresses: initialAddresses } = props
   const [addresses, setAddresses] = useState(initialAddresses)
-  const submit = async ({
-    name, street, city, country, postalCode, type, averagePrice, price, 
-    freeOrPaid, starRating, cuisineType, artMovement, artType, parcType,
-    publicOrPrivate, barType
-    
-     }, { resetForm }) => {
-    const { data: newAddress } = await axios.post("/api/addresses", {
+  const submit = async (
+    { name, street, city, country, postalCode, type, ...rest },
+    { resetForm },
+  ) => {
+    let requestData = {
       name,
       street,
       city,
       country,
       postalCode,
       type,
-      averagePrice,
-      price,
-      freeOrPaid,
-      starRating,
-      cuisineType,
-      artMovement,
-      artType,
-      parcType,
-      publicOrPrivate,
-      barType
+    }
 
-    })
+    switch (type) {
+      case "restaurant":
+        requestData = {
+          ...requestData, averagePrice: rest.averagePrice,
+          price: rest.freeOrPaid === "Free" ? null : rest.price,
+          freeOrPaid: rest.freeOrPaid, starRating: rest.starRating,
+          cuisineType: rest.cuisineType,
+        }
+
+        break
+
+      case "museum":
+        requestData = {
+          ...requestData, artMovement: rest.artMovement,
+          artType: rest.artType, price: rest.freeOrPaid === "Free" ? null : rest.price,
+          freeOrPaid: rest.freeOrPaid,
+        }
+
+        break
+
+      case "bar":
+        requestData = {
+          ...requestData, barType: rest.barType,
+          price: rest.freeOrPaid === "Free" ? null : rest.price,
+          freeOrPaid: rest.freeOrPaid,
+        }
+
+        break
+
+      case "park":
+        requestData = {
+          ...requestData, parcType: rest.parcType,
+          publicOrPrivate: rest.publicOrPrivate,
+          price: rest.freeOrPaid === "Free" ? null : rest.price,
+          freeOrPaid: rest.freeOrPaid,
+        }
+
+        break
+
+      default:
+        break
+    }
+
+    const { data: newAddress } = await axios.post("/api/addresses/", requestData)
     setAddresses([newAddress, ...addresses])
     resetForm()
   }
@@ -62,7 +85,6 @@ const AddAddress = (props) => {
   const handleTypeSelect = (type) => {
     setSelectedType(type)
   }
-
 
   return (
     <div className="flex justify-center mt-32 pt-5">
@@ -75,12 +97,14 @@ const AddAddress = (props) => {
           <TypeSelector handleTypeSelect={handleTypeSelect} />
         </div>
 
-        <Formik initialValues={{starRating: 0, averagePrice: 50,
-            museumFreeOrPaid: false, museumPrice: 1, barPriceRange: 1,
-            parkPublicOrPrivate: false, parkFreeOrPaid: false, parkPrice: 1,
-          }} onSubmit={submit} validationSchema={validationSchema}>
+        <Formik
+          initialValues={{ starRating: 0, averagePrice: 1 }}
+          onSubmit={submit}
+          validationSchema={validationSchema}
+        >
           {({ values }) => (
-            <Form><br></br>
+            <Form>
+              <br />
               <PlaceInfos />
               {selectedType === "restaurant" && <RestaurantForm values={values} />}
               {selectedType === "museum" && <MuseumForm values={values} />}

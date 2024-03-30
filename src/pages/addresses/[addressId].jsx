@@ -17,7 +17,7 @@ const AddressPage = ({ address }) => {
 
   return (
     <>
-      <div className="mt-28 text-center mt-28 pt-10">
+      <div className="mt-28 text-center pt-10">
         <h1 className="text-2xl font-semibold">Nom du lieu: {address.name}</h1>
         <p>Nom de rue: {address.street}</p>
         <p>Ville: {address.city}</p>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import { Button } from "@/components/Button"
 import MuseumForm from "@/components/add_address/MuseumForm"
@@ -18,7 +18,9 @@ export const getServerSideProps = async ({ params: { addressId } }) => {
     props: { address },
   }
 }
+// eslint-disable-next-line max-lines-per-function
 const EditAddress = ({ address }) => {
+  const [freeOrPaid, setFreeOrPaid] = useState(address.freeOrPaid)
   const router = useRouter()
   const handleSubmit = async (formData) => {
     const { _id, ...rest } = formData
@@ -29,10 +31,21 @@ const EditAddress = ({ address }) => {
       await axios.delete(`/api/addresses/${address._id}`)
       router.push("/")
   }
+  const handleFreeOrPaidChange = () => {
+    setFreeOrPaid((prev) => !prev)
+  }
   const renderPlaceForm = () => {
     switch (address.type) {
       case "Musée":
-        return <MuseumForm initialValues={address} onSubmit={handleSubmit} values={address} />
+        return (
+          <MuseumForm
+            initialValues={address}
+            onSubmit={handleSubmit}
+            values={address}
+            freeOrPaid={freeOrPaid}
+            onFreeOrPaidChange={handleFreeOrPaidChange}
+          />
+        )
 
       case "Parc":
         return <ParkForm initialValues={address} onSubmit={handleSubmit} values={address} />
@@ -56,12 +69,14 @@ const EditAddress = ({ address }) => {
           {() => (
             <Form>
               <div className="ml-0 sm:ml-6 mb-2">
-              <span>Type de lieu</span><span className="ml-6">{address.type}</span>
+                <span>Type de lieu</span>
+                <span className="ml-6">{address.type}</span>
               </div>
               <PlaceInfos />
-              {renderPlaceForm()}
+              <div className="ml-6">{renderPlaceForm()}</div>
               <div className="flex justify-center space-x-12 lg:space-x-32 mt-6 px-5 py-5 text-2xl">
-                <Button onClick={handleDelete}>Delete</Button><Button type="submit">Submit</Button>
+                <Button onClick={handleDelete}>Delete</Button>
+                <Button type="submit">Submit</Button>
               </div>
             </Form>
           )}

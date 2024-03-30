@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Field } from "formik"
+import { Field, ErrorMessage } from "formik"
 import Stars from "@/components/Stars"
 const RestaurantForm = ({values}) => {
-  const [price, setprice] =  useState(values.averagePrice)
+  const [price, setprice] = useState(values.averagePrice || 1)
   const [starRating, setStarRating] = useState(values.starRating)
   const handlepriceChange = (newprice) => {
     setprice(newprice)
@@ -31,22 +31,28 @@ return (
 
     <div>
       <label>Nombre d'étoiles: {starRating}</label>
-      <Stars onRatingChange={handleStarRatingChange}/>
+      <Stars onRatingChange={handleStarRatingChange} />
     </div>
 
     <div>
       <label>Prix moyen </label>
       <Field
-          type="range" name="averagePrice" min="1" max="5"
-          value={price} step="1" className="dark:bg-gray-700 ml-5 mb-2"
-            onChange={(e) => {
-              handlepriceChange(e.target.value)
-            }}
+        type="range"
+        name="averagePrice"
+        min="1"
+        max="5"
+        value={price}
+        step="1"
+        className="dark:bg-gray-700 ml-5 mb-2"
+        onChange={(e) => {
+          handlepriceChange(e.target.value)
+        }}
       />
       <span className="ml-2">{price}</span>
+      <ErrorMessage name="averagePrice" component="div" />
     </div>
   </>
-  )
+)
 }
 
 export default RestaurantForm
