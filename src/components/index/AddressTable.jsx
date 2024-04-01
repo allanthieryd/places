@@ -1,20 +1,54 @@
-import { faRefresh } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "axios"
 import Link from "next/link"
-
+import React, { useState, useEffect } from "react"
+import { Button } from "@/components/Button"
+// eslint-disable-next-line max-lines-per-function
 const AddressTable = ({ addresses, setAddresses }) => {
-  const handleFetchData = async () => {
-      const response = await axios.get("http://localhost:3000/api/addresses")
-      setAddresses(response.data)
+  const [searchValue, setSearchValue] = useState("")
+  const [filteredAddresses, setFilteredAddresses] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await axios.get("http://localhost:3000/api/addresses")
+        setAddresses(response.data)
+    }
+
+    fetchData()
+  }, [setAddresses])
+  
+  const handleInputChange = (e) => {
+    setSearchValue(e.target.value)
   }
+  const handleSearch = async () => {
+      const response = await axios.get("http://localhost:3000/api/addresses")
+      const fetchedAddresses = response.data
+      setAddresses(fetchedAddresses)
+      const filtered = fetchedAddresses.filter(address =>
+        address.street.toLowerCase().includes(searchValue.toLowerCase()) ||
+        address.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        address.city.toLowerCase().includes(searchValue.toLowerCase()) ||
+        address.country.toLowerCase().includes(searchValue.toLowerCase()) ||
+        address.type.toLowerCase().includes(searchValue.toLowerCase())
+      )
+  
+      setFilteredAddresses(filtered)
+  }
+  const displayAddresses = filteredAddresses.length > 0 ? filteredAddresses : addresses
 
   return (
-    <div className="flex justify-end mr-2 md:mr-12 lg:mr-24">
-      <button onClick={handleFetchData}>
-        <FontAwesomeIcon icon={faRefresh} className="absolute top-36 lg:text-md md:text-3xl sm:2xl"/>
-      </button>
-      {addresses && addresses.length > 0 ? (
+    <main>
+    <div className="flex justify-end mr-12 md:mr-24 lg:mr-40 mb-4 flex-wrap space-x-4">
+        <input
+          type="search"
+          placeholder="Rechercher un lieu..."
+          className="border-2 border-slate-00 dark:border-slate-700 rounded-md p-2 text-black dark:bg-gray-800 lg:w-1/3 dark:text-white h-12 mt-2"
+          value={searchValue}
+          onChange={handleInputChange}
+        />
+        <Button onClick={handleSearch}>Rechercher</Button>
+    </div>  
+    <div className="flex justify-end mr-2 md:mr-12 lg:mr-24">      
+      {displayAddresses.length > 0 ? (
         <table className="w-1/2 mb-5">
           <thead>
             <tr className="bg-gray-200 dark:bg-gray-800">
@@ -26,9 +60,8 @@ const AddressTable = ({ addresses, setAddresses }) => {
             </tr>
           </thead>
           <tbody>
-            {addresses.map((address, index) => (
-              <tr
-                className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-xs text-center hover:bg-slate-200" key={index}>
+            {displayAddresses.map((address, index) => (
+              <tr className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-[8px] md:text-[12px] lg:text-xs text-center hover:bg-slate-200 dark:hover:bg-slate-700" key={index}>
                 <td className="p-3 border border-slate-400">
                   <Link href={`/addresses/${address._id}/edit`}>{address.street}</Link>
                 </td>
@@ -51,7 +84,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
       ) : (
         <p>No addresses found</p>
       )}
-    </div>
+    </div></main>
   )
 }
 

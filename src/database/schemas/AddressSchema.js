@@ -41,7 +41,7 @@ export const addressSchema = new Schema({
   // Champs spécifiques aux musées
   artMovement: String,
   artType: String,
-  freeOrPaid: {
+  museumFreeOrPaid: {
     type: String,
     enum: ["Free", "Paid"],
   },
@@ -54,14 +54,14 @@ export const addressSchema = new Schema({
     max: 5,
   },
   // Champs spécifiques aux parcs
-  parkType: String,
+  parcType: String,
   publicOrPrivate: {
     type: String,
     enum: ["Public", "Private"],
   },
-  parkFreeOrPaid: {
+  parcFreeOrPaid: {
     type: String,
     enum: ["Free", "Paid"],
   },
-  parkPrice: Number,
+  parcPrice: Number,
 })

@@ -4,8 +4,10 @@ import RestaurantInfos from "./RestaurantsInfos"
 import MuseumsInfos from "./MuseumsInfos"
 import BarsInfos from "./BarsInfos"
 import ParcsInfos from "./ParcsInfos"
+// eslint-disable-next-line max-lines-per-function
 const Filter = ({
   isMenuOpen,handleToggleMenu,menuRef,distance,handleDistanceChange}) => (
+    
   <div className="ml-12 mt-4">
     <div className="mt-32">
       <button onClick={handleToggleMenu} className="p-2">
