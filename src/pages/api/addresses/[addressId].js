@@ -30,7 +30,7 @@ const handler = createRoute(async (req, res) => {
       type: type || address.type,
       averagePrice: averagePrice || address.averagePrice,
       price: price || address.price,
-      freeOrPaid: freeOrPaid ?? address.freeOrPaid,
+      freeOrPaid: freeOrPaid || address.freeOrPaid,
       starRating: starRating || address.starRating,
       cuisineType: cuisineType || address.cuisineType,
       artMovement: artMovement || address.artMovement,

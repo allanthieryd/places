@@ -10,8 +10,8 @@ const MuseumForm = ({ freeOrPaid, onFreeOrPaidChange }) => (
         as="select"
         name="artMovement"
         className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0">
-        <option value="modernArt">Art moderne</option>
-        <option value="abstractArt">Art abstrait</option>
+        <option value="Art moderne">Art moderne</option>
+        <option value="Art abstrait">Art abstrait</option>
       </Field>
       <ErrorMessage name="artMovement" component="div" />
     </div>

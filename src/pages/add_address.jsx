@@ -5,7 +5,7 @@ import RestaurantForm from "@/components/add_address/RestaurantForm"
 import MuseumForm from "@/components/add_address/MuseumForm"
 import BarForm from "@/components/add_address/BarForm"
 import ParkForm from "@/components/add_address/ParkForm"
-import SubmitButton from "@/components/add_address/SubmitButton"
+import { Button } from "@/components/Button"
 import axios from "axios"
 import * as yup from "yup"
 import PlaceInfos from "@/components/add_address/PlaceInfos"
@@ -21,30 +21,26 @@ const validationSchema = yup.object({
 // eslint-disable-next-line max-lines-per-function
 const AddAddress = (props) => {
   const { addresses: initialAddresses } = props
+  const [selectedType, setSelectedType] = useState(null)
   const [addresses, setAddresses] = useState(initialAddresses)
   const router = useRouter()
-  const submit = async ({
-    name,
-    street,
-    city,
-    country,
-    postalCode,
-    type,
-  ...rest} , { resetForm }) => {
+  const submit = async (
+    { name, street, city, country, postalCode, ...rest },
+    { resetForm },
+  ) => {
     const { data: newAddress } = await axios.post("/api/addresses/", {
       name,
       street,
       city,
       country,
       postalCode,
-      type,
-      ...rest
-    }) 
+      type: selectedType,
+      ...rest,
+    })
     setAddresses([newAddress, ...addresses])
     resetForm()
     router.push("/")
   }
-  const [selectedType, setSelectedType] = useState(null)
   const handleTypeSelect = (type) => {
     setSelectedType(type)
   }
@@ -69,11 +65,19 @@ const AddAddress = (props) => {
             <Form>
               <br />
               <PlaceInfos />
-              {selectedType === "restaurant" && <RestaurantForm values={values} onSubmit={submit}/>}
-              {selectedType === "museum" && <MuseumForm values={values} onSubmit={submit}/>}
-              {selectedType === "bar" && <BarForm values={values} onSubmit={submit}/>}
-              {selectedType === "park" && <ParkForm values={values} onSubmit={submit}/>}
-              <SubmitButton>Submit</SubmitButton>
+              {selectedType === "restaurant" && (
+                <RestaurantForm values={values} onSubmit={submit} />
+              )}
+              {selectedType === "museum" && (
+                <MuseumForm values={values} onSubmit={submit} />
+              )}
+              {selectedType === "bar" && (
+                <BarForm values={values} onSubmit={submit} />
+              )}
+              {selectedType === "park" && (
+                <ParkForm values={values} onSubmit={submit} />
+              )}
+              <Button type="submit">Submit</Button>
             </Form>
           )}
         </Formik>

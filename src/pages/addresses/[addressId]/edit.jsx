@@ -48,7 +48,14 @@ const EditAddress = ({ address }) => {
         )
 
       case "Parc":
-        return <ParkForm initialValues={address} onSubmit={handleSubmit} values={address} />
+        return (
+          <ParkForm
+            initialValues={address}
+            onSubmit={handleSubmit}
+            values={address}
+            freeOrPaid={freeOrPaid}
+          />
+        )
 
       case "Restaurant":
         return <RestaurantForm initialValues={address} onSubmit={handleSubmit} values={address} averagePrice={address.averagePrice}/>

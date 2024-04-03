@@ -17,9 +17,9 @@ const BarForm = ({ values }) => {
           name="barType"
           className="dark:bg-gray-700 ml-5 mb-2 border dark:border-0"
         >
-          <option value="wineBar">Bar à vin</option>
-          <option value="cocktailBar">Bar à cocktail</option>
-          <option value="pub">Pub</option>
+          <option value="Bar à vin">Bar à vin</option>
+          <option value="Bar à cocktail">Bar à cocktail</option>
+          <option value="Pub">Pub</option>
         </Field>
         <ErrorMessage name="barType" component="div" />
       </div>
