@@ -28,7 +28,7 @@ const BarForm = ({ values }) => {
         <label>Prix moyen </label>
         <Field
           type="range"
-          name="averagePrice"
+          name="barAveragePrice"
           min="1"
           max="5"
           value={price}
@@ -39,7 +39,7 @@ const BarForm = ({ values }) => {
           }}
         />
         <span className="ml-2">{price}</span>
-        <ErrorMessage name="averagePrice" component="div" />
+        <ErrorMessage name="barAveragePrice" component="div" />
       </div>
     </>
   )

@@ -38,7 +38,7 @@ return (
       <label>Prix moyen </label>
       <Field
         type="range"
-        name="averagePrice"
+        name="restaurantAveragePrice"
         min="1"
         max="5"
         value={price}
@@ -49,7 +49,7 @@ return (
         }}
       />
       <span className="ml-2">{price}</span>
-      <ErrorMessage name="averagePrice" component="div" />
+      <ErrorMessage name="restaurantAveragePrice" component="div" />
     </div>
   </>
 )

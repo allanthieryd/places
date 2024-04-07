@@ -70,17 +70,19 @@ const EditAddress = ({ address }) => {
 
   return (
     <div className="flex justify-center mt-32 pt-5">
-      <div className="px-6 lg:px-32 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
+      <div className="px-0 sm:px-20 lg:px-32 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
         <h1 className="text-2xl flex justify-center">Modifier une adresse</h1><br></br>
         <Formik initialValues={address} onSubmit={handleSubmit}>
           {() => (
             <Form>
-              <div className="ml-0 sm:ml-6 mb-2">
+              <div className="text-sm sm:text-base md:text-xl lg:text-xl">
+              <div className="text-center mb-2 mr-8">
                 <span>Type de lieu</span>
-                <span className="ml-6">{address.type}</span>
+                <span className="ml-4">{address.type}</span>
               </div>
               <PlaceInfos />
               <div className="ml-6">{renderPlaceForm()}</div>
+              </div>
               <div className="flex justify-center space-x-12 lg:space-x-32 mt-6 px-5 py-5 text-2xl">
                 <Button onClick={handleDelete}>Delete</Button>
                 <Button type="submit">Submit</Button>

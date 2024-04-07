@@ -4,7 +4,7 @@ export const addressSchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ["restaurant", "Musée", "Bar", "Parc"],
+    enum: ["Restaurant", "Musée", "Bar", "Parc"],
   },
   name: {
     type: String,
@@ -26,42 +26,43 @@ export const addressSchema = new Schema({
     type: String,
     required: true,
   },
-  // Champs spécifiques aux restaurants
-  cuisineType: String,
-  // StarRating: {
-  //   type: Number,
-  //   min: 1,
-  //   max: 3,
-  // },
-  // cuisineAveragePrice: {
-  //   type: Number,
-  //   min: 1,
-  //   max: 5,
-  // },
-  // // Champs spécifiques aux musées
-  // artMovement: String,
-  // artType: String,
-  // museumFreeOrPaid: {
-  //   type: String,
-  //   enum: ["Free", "Paid"],
-  // },
-  // price: Number,
-  // // Champs spécifiques aux bars
-  // barType: String,
-  // barAveragePrice: {
-  //   type: Number,
-  //   min: 1,
-  //   max: 5,
-  // },
-  // // Champs spécifiques aux parcs
-  // parcType: String,
-  // publicOrPrivate: {
-  //   type: String,
-  //   enum: ["Public", "Private"],
-  // },
-  // parcFreeOrPaid: {
-  //   type: String,
-  //   enum: ["Free", "Paid"],
-  // },
-  // parcPrice: Number,
+  cuisineType: {
+    type: String,
+  },
+  restaurantAveragePrice: {
+    type: Number,
+  },
+  starRating: {
+    type: Number,
+  },
+  artMovement: {
+    type: String,
+  },
+  artType: {
+    type: String,
+  },
+  museumFreeOrPaid: {
+    type: String,
+  },
+  museumPrice: {
+    type: Number,
+  },
+  barType: {
+    type: String,
+  },
+  barAveragePrice: {
+    type: Number,
+  },
+  parcType: {
+    type: String,
+  },
+  publicOrPrivate: {
+    type: String,
+  },
+  parcFreeOrPaid: {
+    type: String,
+  },
+  parcPrice: {
+    type: Number,
+  },
 })

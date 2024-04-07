@@ -5,7 +5,7 @@ import Link from "next/link"
 import "@fontsource/montserrat"
 import DarkModeButton from "@/components/DarkModeButton"
 
-const Header = ({ onSearch }) => (
+const Header = () => (
   <header className="fixed top-0 left-0 items-center justify-between border-b-4 border-slate-00 dark:border-gray-800 bg-white dark:bg-gray-900 w-full h-32">
     <div className="fixed top-8 left-14 min-w-24">
     <Link href="/">
@@ -26,11 +26,6 @@ const Header = ({ onSearch }) => (
     <div className="fixed top-8 right-4">
       <DarkModeButton />
     </div>
-    {onSearch && (
-        <div className="fixed top-8 right-36 md:right-20 min-w-24">
-          <p>Résultats pour: {onSearch}</p>
-        </div>
-      )}
   </header>
   )
 

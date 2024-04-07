@@ -16,9 +16,11 @@ const Stars = ({ onRatingChange }) => {
 
   return (
     <main>
-      <div className="w-42 flex gap-1 flex-wrap">
+      <div>
         {[1, 2, 3].map((index) => (
           <FontAwesomeIcon
+            name="starRating"
+            value="rating"
             key={index}
             icon={faStar}
             className={`text-[19px] sm:text-2xl cursor-pointer ${

@@ -2,20 +2,24 @@ import React from "react"
 import { Button } from "@/components/Button"
 
 const TypeSelector = ({ handleTypeSelect }) => (
-    <div className="flex flex-wrap space-x-4 justify-center">
-      <Button type="Button" onClick={() => handleTypeSelect("restaurant")}>
+  <div className="flex flex-wrap justify-center text-sm lg:text-base">
+    <div className="space-x-4 justify-center">
+      <Button type="Button" onClick={() => handleTypeSelect("Restaurant")}>
         Restaurant
       </Button>
-      <Button type="Button" onClick={() => handleTypeSelect("museum")}>
+      <Button type="Button" onClick={() => handleTypeSelect("Musée")}>
         Musée
       </Button>
-      <Button type="Button" onClick={() => handleTypeSelect("bar")}>
+    </div>
+    <div className="ml-4 space-x-4 justify-center">
+      <Button type="Button" onClick={() => handleTypeSelect("Bar")}>
         Bar
       </Button>
-      <Button type="Button" onClick={() => handleTypeSelect("park")}>
+      <Button type="Button" onClick={() => handleTypeSelect("Parc")}>
         Parc
       </Button>
     </div>
-  )
+  </div>
+)
 
 export default TypeSelector

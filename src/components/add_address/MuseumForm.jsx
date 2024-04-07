@@ -34,10 +34,10 @@ const MuseumForm = ({ freeOrPaid, onFreeOrPaidChange }) => (
           type="checkbox"
           checked={freeOrPaid !== "Free" && freeOrPaid}
           onChange={onFreeOrPaidChange}
-          className="w-5 h-4"
+          className="w-5 h-4" name="museumFreeOrPaid"
         />
       </label>
-      <ErrorMessage name="freeOrPaid" component="div"  />
+      <ErrorMessage name="museumFreeOrPaid" component="div"  />
     </div>
 
     {freeOrPaid && freeOrPaid !== "Free" && (
@@ -45,10 +45,10 @@ const MuseumForm = ({ freeOrPaid, onFreeOrPaidChange }) => (
         <label>Prix</label>
         <Field
           type="number"
-          name="price"
+          name="museumPrice"
           className="dark:bg-gray-700 ml-5 mb-2"
         />
-        <ErrorMessage name="price" component="div" />
+        <ErrorMessage name="museumPrice" component="div" />
       </div>
     )}
   </>

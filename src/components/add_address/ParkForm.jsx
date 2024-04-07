@@ -27,22 +27,22 @@ const ParkForm = ({ values }) => (
 
     <div className="mt-2">
       <label className="mr-5 mb-2">Payant (ne pas cocher si gratuit)</label>
-      <Field type="checkbox" name="freeOrPaid" className="w-5 h-4" />
-      <ErrorMessage name="freeOrPaid" component="div" />
+      <Field type="checkbox" name="parcFreeOrPaid" className="w-5 h-4" />
+      <ErrorMessage name="parcFreeOrPaid" component="div" />
     </div>
 
-    {values.freeOrPaid && values.freeOrPaid !== "Free" && (
+    {values.parcFreeOrPaid && values.parcFreeOrPaid !== "Free" && (
       <div className="mt-2">
         <label>Prix</label>
         <Field
           type="number"
-          name="price"
+          name="parcPrice"
           className="dark:bg-gray-700 ml-5 mb-2"
         />
-        <ErrorMessage name="price" component="div" />
+        <ErrorMessage name="parcPrice" component="div" />
       </div>
     )}
-    {values.freeOrPaid && values.freeOrPaid !== "Free" && (
+    {values.parcFreeOrPaid && values.parcFreeOrPaid !== "Free" && (
       <div className="mb-2">
         <span>Echelle de prix</span>
         <input
@@ -50,15 +50,15 @@ const ParkForm = ({ values }) => (
           name="freeOrPaidScale"
           min="1"
           max="5"
-          value={parseInt(values.freeOrPaid, 10)}
+          value={parseInt(values.parcFreeOrPaid, 10)}
           step="1"
           className="dark:bg-gray-700 ml-5 mb-2"
-          disabled={!values.freeOrPaid || values.freeOrPaid === "Free"}
+          disabled={!values.parcFreeOrPaid || values.parcFreeOrPaid === "Free"}
         />
         <br></br>
         <span className="ml-32">
           {Array.from(
-            { length: parseInt(values.freeOrPaid, 10) },
+            { length: parseInt(values.parcFreeOrPaid, 10) },
             (_) => "💵",
           ).join("")}
         </span>

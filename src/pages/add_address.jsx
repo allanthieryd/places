@@ -48,7 +48,7 @@ const AddAddress = (props) => {
   return (
     <div className="flex justify-center mt-32 pt-5">
       <div className="sm:px-24 md:px-32 bg-gray-200 rounded-lg shadow-lg p-4 dark:bg-gray-800 dark:text-white">
-        <h1 className="text-2xl flex justify-center">
+        <h1 className="text-2xl flex justify-center text-center">
           Veuillez entrer un lieu
         </h1>
         <br />
@@ -57,27 +57,31 @@ const AddAddress = (props) => {
         </div>
 
         <Formik
-          initialValues={{ starRating: 0, averagePrice: 1 }}
+          initialValues={{ starRating: 0 }}
           onSubmit={submit}
           validationSchema={validationSchema}
         >
           {({ values }) => (
             <Form>
+              <div className="ml-8">
               <br />
               <PlaceInfos />
-              {selectedType === "restaurant" && (
+              {selectedType === "Restaurant" && (
                 <RestaurantForm values={values} onSubmit={submit} />
               )}
-              {selectedType === "museum" && (
+              {selectedType === "Musée" && (
                 <MuseumForm values={values} onSubmit={submit} />
               )}
-              {selectedType === "bar" && (
+              {selectedType === "Bar" && (
                 <BarForm values={values} onSubmit={submit} />
               )}
-              {selectedType === "park" && (
+              {selectedType === "Parc" && (
                 <ParkForm values={values} onSubmit={submit} />
               )}
-              <Button type="submit">Submit</Button>
+              <div className="flex justify-center text-2xl ml-8">
+                <Button type="submit">Submit</Button>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>

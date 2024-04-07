@@ -37,11 +37,11 @@ const AddressTable = ({ addresses, setAddresses }) => {
 
   return (
     <main>
-    <div className="flex justify-end mr-12 md:mr-24 lg:mr-40 mb-4 flex-wrap space-x-4">
+    <div className="flex justify-end mr-2 md:mr-24 lg:mr-40 mb-4 flex-wrap space-x-2 lg:space-x-4">
         <input
           type="search"
           placeholder="Rechercher un lieu..."
-          className="border-2 border-slate-00 dark:border-slate-700 rounded-md p-2 text-black dark:bg-gray-800 lg:w-1/3 dark:text-white h-12 mt-2"
+          className="border-2 border-slate-00 dark:border-slate-700 rounded-md p-2 text-black dark:bg-gray-800 lg:w-1/3 dark:text-white h-12 mt-2 text-xs md:text-sm lg:text-base"
           value={searchValue}
           onChange={handleInputChange}
         />
@@ -51,7 +51,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
       {displayAddresses.length > 0 ? (
         <table className="w-1/2 mb-5">
           <thead>
-            <tr className="bg-gray-200 dark:bg-gray-800">
+            <tr className="bg-gray-200 dark:bg-gray-800 text-xs sm:text-base lg:text-xl">
               <th className="p-3">Address</th>
               <th className="p-3">City</th>
               <th className="p-3">Country</th>
