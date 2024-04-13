@@ -25,7 +25,7 @@ const DarkModeButton = () => {
 
   return (
     <button
-      className="mt-0.5 ml-auto text-4xl"
+      className="text-3xl sm:text-5xl"
       onClick={handleThemeSwitch}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >

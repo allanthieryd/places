@@ -78,7 +78,7 @@ const AddAddress = (props) => {
               {selectedType === "Parc" && (
                 <ParkForm values={values} onSubmit={submit} />
               )}
-              <div className="flex justify-center text-2xl ml-8">
+              <div className="flex justify-center text-2xl">
                 <Button type="submit">Submit</Button>
                 </div>
               </div>

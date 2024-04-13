@@ -23,13 +23,16 @@ const AddressTable = ({ addresses, setAddresses }) => {
       const response = await axios.get("http://localhost:3000/api/addresses")
       const fetchedAddresses = response.data
       setAddresses(fetchedAddresses)
-      const filtered = fetchedAddresses.filter(address =>
-        address.street.toLowerCase().includes(searchValue.toLowerCase()) ||
-        address.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        address.city.toLowerCase().includes(searchValue.toLowerCase()) ||
-        address.country.toLowerCase().includes(searchValue.toLowerCase()) ||
-        address.type.toLowerCase().includes(searchValue.toLowerCase())
-      )
+      const filtered = fetchedAddresses.filter((address) => {
+        const searchTerms = searchValue.toLowerCase().split(/[,\s]+/u)
+
+        
+return searchTerms.every((term) =>
+          Object.values(address).some((value) =>
+            typeof value === "string" && value.toLowerCase().includes(term)
+          )
+        )
+      })
   
       setFilteredAddresses(filtered)
   }
@@ -41,17 +44,19 @@ const AddressTable = ({ addresses, setAddresses }) => {
         <input
           type="search"
           placeholder="Rechercher un lieu..."
-          className="border-2 border-slate-00 dark:border-slate-700 rounded-md p-2 text-black dark:bg-gray-800 lg:w-1/3 dark:text-white h-12 mt-2 text-xs md:text-sm lg:text-base"
+          className="border-2 border-slate-00 dark:border-slate-700 rounded-md p-2 text-black dark:bg-gray-800 lg:w-1/3 dark:text-white h-10 sm:h-12 mt-2 text-xs md:text-sm lg:text-base"
           value={searchValue}
           onChange={handleInputChange}
         />
+        <div className="text-xs sm:text-base" >
         <Button onClick={handleSearch}>Rechercher</Button>
+        </div>
     </div>  
-    <div className="flex justify-end mr-2 md:mr-12 lg:mr-24">      
+    <div className="flex justify-end mr-2 md:mr-8 lg:mr-24">      
       {displayAddresses.length > 0 ? (
         <table className="w-1/2 mb-5">
           <thead>
-            <tr className="bg-gray-200 dark:bg-gray-800 text-xs sm:text-base lg:text-xl">
+            <tr className="bg-gray-200 dark:bg-gray-800 text-xs sm:text-xl">
               <th className="p-3">Address</th>
               <th className="p-3">City</th>
               <th className="p-3">Country</th>
@@ -61,7 +66,7 @@ const AddressTable = ({ addresses, setAddresses }) => {
           </thead>
           <tbody>
             {displayAddresses.map((address, index) => (
-              <tr className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-[8px] md:text-[12px] lg:text-xs text-center hover:bg-slate-200 dark:hover:bg-slate-700" key={index}>
+              <tr className="even:bg-gray-100 dark:even:bg-gray-800 odd:bg-white dark:odd:bg-gray-700 border text-[8px] sm:text-[12px] lg:text-xs text-center hover:bg-slate-200 dark:hover:bg-slate-700" key={index}>
                 <td className="p-3 border border-slate-400">
                   <Link href={`/addresses/${address._id}/edit`}>{address.street}</Link>
                 </td>
