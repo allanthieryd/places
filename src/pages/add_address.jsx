@@ -11,6 +11,15 @@ import * as yup from "yup"
 import PlaceInfos from "@/components/add_address/PlaceInfos"
 import { useRouter } from "next/router"
 
+export const getServerSideProps = async () => {
+  const { data: address } = await axios(
+    `http://localhost:3000/api/addresses`,
+  )
+
+  return {
+    props: { address },
+  }
+}
 const validationSchema = yup.object({
   name: yup.string().min(3).required("Le nom du lieu est requis"),
   street: yup.string().min(3).required("La rue est requise"),

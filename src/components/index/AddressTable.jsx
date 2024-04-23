@@ -2,6 +2,7 @@ import axios from "axios"
 import Link from "next/link"
 import React, { useState, useEffect } from "react"
 import { Button } from "@/components/Button"
+
 // eslint-disable-next-line max-lines-per-function
 const AddressTable = ({ addresses, setAddresses }) => {
   const [searchValue, setSearchValue] = useState("")
@@ -89,7 +90,9 @@ return searchTerms.every((term) =>
       ) : (
         <p>No addresses found</p>
       )}
-    </div></main>
+    </div>
+    
+    </main>
   )
 }
 
