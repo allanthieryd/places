@@ -1,30 +1,10 @@
 import axios from "axios"
 import Link from "next/link"
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import { Button } from "@/components/Button"
-import Filter from "@/components/index/Filter"
 
 // eslint-disable-next-line max-lines-per-function
 const AddressTable = ({ addresses, setAddresses }) => {
-  const [isMenuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef(null)
-  const handleToggleMenu = (event) => {
-    event.stopPropagation()
-    setMenuOpen(!isMenuOpen)
-  }
-  const handleCloseMenu = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setMenuOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("click", handleCloseMenu)
-
-    return () => {
-      document.removeEventListener("click", handleCloseMenu)
-    }
-  }, [])
   const [searchValue, setSearchValue] = useState("")
   const [filteredAddresses, setFilteredAddresses] = useState([])
 
@@ -60,12 +40,7 @@ return searchTerms.every((term) =>
   const displayAddresses = filteredAddresses.length > 0 ? filteredAddresses : addresses
 
   return (
-    <main>
-      <Filter
-        isMenuOpen={isMenuOpen}
-        handleToggleMenu={handleToggleMenu}
-        menuRef={menuRef}
-      />
+    <main className="mt-32">
     <div className="flex justify-end mr-2 md:mr-24 lg:mr-40 mb-4 flex-wrap space-x-2 lg:space-x-4">
         <input
           type="search"
